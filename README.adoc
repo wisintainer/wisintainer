@@ -1,0 +1,36 @@
+= AdminFaces Starter project
+
+
+A simple project to get you started with https://github.com/adminfaces[AdminFaces^].
+
+== Building
+
+This project uses https://maven.apache.org/[Maven^] for the build:
+
+----
+mvn clean package
+----
+
+== Running
+
+Just deploy `bomdebola.war` generated in previous step into apache tomcat.
+
+Tested on *Tomcat 8.5.3*
+
+== Demo
+
+A live demo is available on Openshift here: http://adminfaces.github.io/admin-starter/
+
+== Screenshots
+
+.Login page
+image:starter1.png[]
+
+.Car list
+image:starter2.png[]
+
+.Car form
+image:starter3.png[]
+
+.Car form responsive
+image:starter4.png[]

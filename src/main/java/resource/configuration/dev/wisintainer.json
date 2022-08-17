@@ -1,0 +1,96 @@
+{
+	"sistema": {
+		"contexto": "wisintainer",
+		"identificador": {
+			"singular": "wisintainer"
+		}
+	},
+	"private": {
+		"administrador": {
+			"email": {
+				"no-reply": "no-reply@sesc-sc.com.br",
+				"no-reply-assunto": "Não responder / Sesc Santa Catarina",
+				"mantenedor": "adrianow@sesc-sc.com.br",
+				"admin": "admin.scaweb@sesc-sc.com.br",
+				"smtp-port": "25",
+				"smtp-host": "smtp.sesc-sc.com.br",
+				"habilita-envio-email": true,
+				"auth": "false",
+				"starttls": "true"
+			},
+			"regional": "SC"
+		},
+		"web-xml": {
+			"link-externo": {
+				"url-css": "https://www.sescpr.com.br/_files/css/erp/",
+				"url-js": "https://www.sescpr.com.br/_files/js/erp/"
+			}
+		},
+		"cookie": {
+			"nomeCookie": "matLogCriptDev",
+			"dominio": "localhost",
+			"nomeCookieCss": "menuclosed"
+		},
+		"autenticacao": {
+			"url": "https://permissao.sesc-sc.com.br/permissaows-teste",
+			"chave-sistema": "76d0fdc8-f6a9-48a8-8d93-fdfb70c0570b",
+			"criptografia": {
+				"chave": "12Osk$12&#fS1S3$",
+				"algoritmo": "AES",
+				"encode": "UTF-8",
+				"transformacao": "AES/ECB/PKCS5Padding"
+			},
+			"timeout": "10"
+		},
+		"database": {
+			"mysql-cfg": {
+				"hibernate-default_schema": "adriano1409_wisintainer",
+				"hibernate-connection-url": "jdbc:mysql://209.145.49.81:3306/adriano1409_wisintainer?zeroDateTimeBehavior=CONVERT_TO_NULL",
+				"hibernate-connection-username": "adriano1409_wisintainer",
+				"hibernate-connection-password": "wisintainer",
+				"hibernate-connection-clientProgramName": "wisintainer",
+				"hibernate-c3p0-preferredTestQuery": "VALUES 'wisintainer'"
+			}
+		},
+		"criptografia": {
+			"chave": "12Osk$12&#fS1S3$",
+			"algoritmo": "AES",
+			"encode": "UTF-8",
+			"transformacao": "AES/ECB/PKCS5Padding"
+		},
+		"notificacoesWs": {
+			"URL": "https://appt.sescpr.com.br/notificacoes2"
+		},
+		"receitaWS": {
+			"url": "https://app1.sescpr.com.br/receitaws",
+			"timeout": "30"
+		},
+		"wsClientela": {
+			"url": "https://wsclienteladev.sesc-sc.com.br/WSClientela",
+			"usuario": "central",
+			"senha": "enpXgG6m-moCAxpTC.np169ywG",
+			"timeout": "30"
+		},
+		"wsAtividades": {
+			"url": "https://wsatividadesdev.sesc-sc.com.br/WSAtividades",
+			"usuario": "central",
+			"senha": "enpXgG6m-moCAxpTC.np169ywG",
+			"timeout": "30"
+		},
+		"wsCobranca": {
+			"url": "https://wscobrancadev.sesc-sc.com.br/WSCobranca",
+			"usuario": "plataformamobile",
+			"senha": "2c826c10-01bb-4043-b25b-59182c565f79",
+			"timeout": "30"
+		},
+		"viaCep": {
+			"url": "https://viacep.com.br/ws",
+			"timeout": "10"
+		},
+		"version": {
+			"major": "11",
+			"minor": "0",
+			"patch": "0"
+		}
+	}
+}

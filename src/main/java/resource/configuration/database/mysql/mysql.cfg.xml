@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd"> 
+<hibernate-configuration>
+	<session-factory>
+		<!-- Configuracao do Hibernate para Plugin Eclipse HQL -->
+		<property name="hibernate.default_schema">PARAMETRIZADO</property> 
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">PARAMETRIZADO</property>
+		<property name="hibernate.connection.username">PARAMETRIZADO</property>
+		<property name="hibernate.connection.password">PARAMETRIZADO</property>
+        <property name="hibernate.connection.C3P0ConnectionProvider">org.hibernate.connection.C3P0ConnectionProvider</property> 
+        
+        <property name="show_sql">false</property>
+		<property name="format_sql">false</property>
+		<property name="use_sql_comments">false</property>
+ 
+		<!-- Configuracao do Hibernate -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.transaction.coordinator_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<property name="hibernate.jdbc.batch_size">0</property>
+		<property name="hibernate.connection.clientProgramName">PARAMETRIZADO</property> 
+		<property name="hibernate.connection.autocommit">false</property>
+
+        <property name="hibernate.c3p0.preferredTestQuery">PARAMETRIZADO</property>
+        <property name="hibernate.c3p0.testConnectionOnCheckin">true</property>
+        <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+        <property name="hibernate.c3p0.acquireIncrement">1</property>
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">3</property>
+        <property name="hibernate.c3p0.timeout">0</property> <!-- segundos  -->
+        <property name="hibernate.c3p0.max_statements">0</property>
+        <property name="hibernate.c3p0.idle_test_period">30</property> <!-- segundos  -->    
+        <property name="hibernate.c3p0.checkoutTimeout">0</property> <!-- milisegundos  -->
+        <property name="hibernate.c3p0.acquireRetryDelay">2000</property> <!-- milisegundos  -->
+        <property name="hibernate.c3p0.acquireRetryAttempts">3</property>
+   		<property name="hibernate.order_updates">true</property>
+		<property name="hibernate.order_inserts">true</property>
+		<property name="hibernate.c3p0.preferredTestQuery">VALUES 1</property>
+
+		<!-- *** ATENÇÃO: Entidades são mapeadas automaticamente pela HibernateUtil. NÃO MAPEAR AQUI **** -->
+		
+	</session-factory>
+</hibernate-configuration>
