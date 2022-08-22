@@ -21,5 +21,9 @@ public class FornecedorBO implements Serializable {
 	public List<Fornecedor> buscarTodosFornecedores() throws Exception {
 		return fornecedorDao.buscarTodosFornecedoresSqlNativo();
 	}
+	
+	public List<Fornecedor> buscarFornecedoresPorNome(String nome) throws Exception {
+		return fornecedorDao.buscarFornecedoresPorNome(nome);
+	}
 
 }

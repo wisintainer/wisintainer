@@ -1,0 +1,267 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Novo Orçamento
+    </ui:define>
+
+	<ui:define name="body">
+
+		<h:form>
+			<div class="box box-primary">
+				<div class="callout-card callout-warning" style="margin-top: 30px">
+					<p>Informações do Veículo</p>
+				</div>
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid"></div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="fabricante" required="true"
+									placeholder="Fabricante do Veículo"
+									value="#{orcamentoMB.orcamento.veiculoFabricante}" />
+								<p:outputLabel for="fabricante" value="Fabricante" />
+								<p:message for="fabricante" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="modelo" required="true"
+									value="#{orcamentoMB.orcamento.veiculoModelo}"
+									placeholder="Modelo do Veículo" />
+								<p:outputLabel for="modelo" value="Modelo" />
+								<p:message for="modelo" />
+							</div>
+						</div>
+
+						<div class="ui-g-1 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="anoFabricacao" required="true"
+									value="#{orcamentoMB.orcamento.veiculoAnoFabricao}"
+									placeholder="Ano de Fabricação" />
+								<p:outputLabel for="anoFabricacao" value="Ano de Fabricação" />
+								<p:message for="anoFabricacao" />
+							</div>
+						</div>
+
+						<div class="ui-g-1 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="anoModelo" required="true"
+									value="#{orcamentoMB.orcamento.veiculoAnoModelo}"
+									placeholder="Ano Modelo" />
+								<p:outputLabel for="anoModelo" value="Ano Modelo" />
+								<p:message for="anoModelo" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="placa" required="true"
+									value="#{orcamentoMB.orcamento.veiculoPlaca}"
+									placeholder="Placa do Veículo" />
+								<p:outputLabel for="placa" value="Placa" />
+								<p:message for="placa" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="chassi" required="true"
+									value="#{orcamentoMB.orcamento.veiculoChassi}"
+									placeholder="Chassi do Veículo" />
+								<p:outputLabel for="chassi" value="Chassi" />
+								<p:message for="chassi" />
+							</div>
+							<p:spacer />
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</h:form>
+		<p:spacer />
+		<h:form>
+			<div class="box box-primary">
+				<div class="callout-card callout-warning" style="margin-top: 30px">
+					<p>Produtos/Serviços</p>
+				</div>
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-4 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="produto" required="true"
+									value="#{orcamentoMB.produtoServico}"
+									placeholder="Produto/Serviço" />
+								<p:outputLabel for="produto" value="Produto/Serviço" />
+								<p:message for="produto" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:inputText id="quantidade" required="true"
+									value="#{orcamentoMB.quantidade}" placeholder="Quantidade" />
+								<p:outputLabel for="quantidade" value="Quantidade" />
+								<p:message for="quantidade" />
+							</div>
+						</div>
+
+						<div class="ui-g-1 ui-sm-2">
+							<div class="ui-material">
+								<p:commandButton action="#{orcamentoMB.adicionarItem}"
+									update="panelItensOrcamento" process="@form" value="Adicionar"
+									styleClass="btn-primary" icon="fa fa-plus" />
+							</div>
+						</div>
+					</div>
+
+					<p:panel id="panelItensOrcamento">
+						<p:dataTable id="itensTable" value="#{orcamentoMB.itensOrcamento}"
+							widgetVar="itensOrcamentoTable" rows="20" var="item"
+							paginator="true" paginatorPosition="bottom"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+							currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+							<p:column headerText="Item">
+								<p:outputLabel />
+							</p:column>
+
+							<p:column headerText="Produto/Serviço">
+								<p:outputLabel value="#{item.produtoServico}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<p:outputLabel value="#{item.quantidade}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</div>
+			</div>
+		</h:form>
+
+
+		<h:form>
+			<div class="box box-primary">
+				<div class="callout-card callout-warning" style="margin-top: 30px">
+					<p>Fornecedores</p>
+				</div>
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid"></div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<div class="ui-material">
+								<p:commandButton process="@form" value="Buscar Fornecedores"
+									oncomplete="{PF('buscaDeFornecedores').show();}"
+									styleClass="btn-primary" icon="fa fa-search" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+
+
+		<p:dialog header="Busca de Fornecedores" resizable="false" width="50%"
+			appendTo="@(body)" height="50%" modal="true" closable="false"
+			widgetVar="buscaDeFornecedores" responsive="true"
+			styleClass="box-success">
+			<p:panel id="panelBuscaFornecedores">
+				<h:form>
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-4 ui-sm-2">
+									<div class="ui-material">
+										<p:inputText id="nomeFornecedorBusca" required="true"
+											value="#{orcamentoMB.nomeFornecedorParaBuscar}"
+											placeholder="Nome" />
+										<p:outputLabel for="nomeFornecedorBusca" value="Nome" />
+										<p:message for="nomeFornecedorBusca" />
+									</div>
+								</div>
+
+							</div>
+
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-2 ui-sm-1">
+									<p:commandButton value="Buscar" update="panelBuscaFornecedores"
+										action="#{orcamentoMB.buscarFornecedoresPorNome}"
+										styleClass="btn-primary" icon="fa fa-check" />
+								</div>
+							</div>
+
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-5 ui-sm-2">
+									<p:dataTable value="#{orcamentoMB.fornecedoresBuscados}"
+										rows="5" paginator="true" paginatorPosition="bottom"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+										currentPageReportTemplate=""
+										rowsPerPageTemplate="5,10,15,20,30" selectionMode="single"
+										selection="#{orcamentoMB.fornecedorSelecionadoParaAdicionar}"
+										var="fornecedorBuscado" rowKey="#{fornecedorBuscado.id}">
+										<p:column headerText="CNPJ">
+											<p:outputLabel value="#{fornecedorBuscado.cnpj}" />
+										</p:column>
+										<p:column headerText="Fornecedor">
+											<p:outputLabel value="#{fornecedorBuscado.nome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+
+								<div class="ui-g-1 ui-sm-1">
+									<p:commandButton process="@form" icon="fa fa-arrow-right"
+										update="panelBuscaFornecedores"
+										action="#{orcamentoMB.adicionarFornecedor}" />
+								</div>
+
+								<div class="ui-g-5 ui-sm-2">
+									<p:dataTable value="#{orcamentoMB.fornecedoresSelecionados}"
+										rows="5" paginator="true" paginatorPosition="bottom"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+										currentPageReportTemplate=""
+										rowsPerPageTemplate="5,10,15,20,30"
+										var="fornecedorSelecionado">
+										<p:column headerText="CNPJ">
+											<p:outputLabel value="#{fornecedorSelecionado.cnpj}" />
+										</p:column>
+										<p:column headerText="Fornecedor">
+											<p:outputLabel value="#{fornecedorSelecionado.nome}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+					</div>
+					<div class="ui-g-12" style="align-content: center;">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Salvar" update="panelBuscaFornecedores"
+								action="#{orcamentoMB.buscarFornecedoresPorNome}"
+								styleClass="btn-success" icon="fa fa-check" />
+						</div>
+
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Fechar"
+								oncomplete="{PF('buscaDeFornecedores').hide();}"
+								styleClass="btn-danger" icon="fa fa-close" />
+						</div>
+					</div>
+				</h:form>
+			</p:panel>
+		</p:dialog>
+	</ui:define>
+
+</ui:composition>

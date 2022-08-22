@@ -13,7 +13,7 @@ public class FornecedorDAO extends GenericDAO {
 
 	public FornecedorDAO() {
 		super(HibernateUtil.getSessionMysqlFactory());
-	}
+	} 
 
 	public FornecedorDAO(Session session) {
 		super(HibernateUtil.getSessionMysqlFactory(), session);
@@ -22,6 +22,14 @@ public class FornecedorDAO extends GenericDAO {
 	public List<Fornecedor> buscarTodosFornecedoresSqlNativo() throws Exception {
 		SQLBuilder sb = new SQLBuilder(Mode.SQL);
 		sb.append(" SELECT * FROM fornecedor ");
+
+		return getArrayList(sb, Fornecedor.class);
+	}
+	
+	public List<Fornecedor> buscarFornecedoresPorNome(String nome) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" SELECT * FROM fornecedor WHERE nome like :nome ");
+		sb.setParameterLike("nome", nome);
 
 		return getArrayList(sb, Fornecedor.class);
 	}
