@@ -18,33 +18,33 @@ import java.io.IOException;
 @ApplicationScoped
 public class Utils implements Serializable {
 
+	@PostConstruct
+	public void init() {
+
+	}
+
+	public static void addDetailMessage(String message) {
+		addDetailMessage(message, null);
+	}
+
+	public static void addDetailMessage(String message, FacesMessage.Severity severity) {
+
+		FacesMessage facesMessage = Messages.create("").detail(message).get();
+		if (severity != null && severity != FacesMessage.SEVERITY_INFO) {
+			facesMessage.setSeverity(severity);
+		} else {
+			Messages.add(null, facesMessage);
+		}
+	}
+
+	public static String converteJsonEmString(BufferedReader buffereReader) throws IOException {
+		String resposta, jsonEmString = "";
+		while ((resposta = buffereReader.readLine()) != null) {
+			jsonEmString += resposta;
+		}
+		return jsonEmString;
+	}
 
 
-    @PostConstruct
-    public void init() {
-
-    }
-
-     public static void addDetailMessage(String message){
-       addDetailMessage(message, null);
-    }
-
-    public static void addDetailMessage(String message, FacesMessage.Severity severity){
-
-        FacesMessage facesMessage = Messages.create("").detail(message).get();
-        if(severity != null && severity != FacesMessage.SEVERITY_INFO) {
-            facesMessage.setSeverity(severity);
-        } else{
-            Messages.add(null,facesMessage);
-        }
-    }
-    
-    public static String converteJsonEmString(BufferedReader buffereReader) throws IOException {
-        String resposta, jsonEmString = "";
-        while ((resposta = buffereReader.readLine()) != null) {
-            jsonEmString += resposta;
-        }
-        return jsonEmString;
-    }
 
 }

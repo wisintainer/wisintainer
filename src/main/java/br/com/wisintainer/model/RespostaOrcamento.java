@@ -1,42 +1,46 @@
 package br.com.wisintainer.model;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.com.wisintainer.helper.TipoBanco;
 import br.com.wisintainer.helper.TipoBanco.TiposBanco;
 
 @Entity
 @TipoBanco(banco = TiposBanco.MYSQL)
-@Table(name = "itemorcamento", schema = "adriano1409_wisintainer")
-public class ItemOrcamento {
+@Table(name = "respostaorcamento", schema = "adriano1409_wisintainer")
+public class RespostaOrcamento implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
 
-	@Column(name = "produtoServico")
-	private String produtoServico;
+	@Column(name = "id_orcamento")
+	private Integer id_orcamento;
 
-	@Column(name = "quantidade")
-	private Integer quantidade;
+	@Column(name = "id_item")
+	private Integer id_item;
 
-	@Column(name = "orcamento_id")
-	private Integer orcamento_id;
+	@Column(name = "id_resposta")
+	private Integer id_resposta;
 
-	@Transient
-	private boolean tememestoque;
-
-	@Transient
+	@Column(name = "valor")
 	private Double valor;
+
+	@Column(name = "tememestoque")
+	private boolean tememestoque;
 
 	public Integer getId() {
 		return id;
@@ -46,28 +50,28 @@ public class ItemOrcamento {
 		this.id = id;
 	}
 
-	public String getProdutoServico() {
-		return produtoServico;
+	public Integer getId_orcamento() {
+		return id_orcamento;
 	}
 
-	public void setProdutoServico(String produtoServico) {
-		this.produtoServico = produtoServico;
+	public void setId_orcamento(Integer id_orcamento) {
+		this.id_orcamento = id_orcamento;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
+	public Integer getId_item() {
+		return id_item;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setId_item(Integer id_item) {
+		this.id_item = id_item;
 	}
 
-	public Integer getOrcamento_id() {
-		return orcamento_id;
+	public Integer getId_resposta() {
+		return id_resposta;
 	}
 
-	public void setOrcamento_id(Integer orcamento_id) {
-		this.orcamento_id = orcamento_id;
+	public void setId_resposta(Integer id_resposta) {
+		this.id_resposta = id_resposta;
 	}
 
 	public boolean isTememestoque() {

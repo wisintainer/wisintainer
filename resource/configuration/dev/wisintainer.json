@@ -8,14 +8,17 @@
 	"private": {
 		"administrador": {
 			"email": {
-				"no-reply": "no-reply@sesc-sc.com.br",
-				"no-reply-assunto": "Não responder / Sesc Santa Catarina",
-				"mantenedor": "adrianow@sesc-sc.com.br",
-				"admin": "admin.scaweb@sesc-sc.com.br",
-				"smtp-port": "25",
-				"smtp-host": "smtp.sesc-sc.com.br",
+				"no-reply": "wisintainer@gimmepepper.com.br",
+				"username": "wisintainer@gimmepepper.com.br",
+				"password": "wisintainer",
+				"no-reply-assunto": "Orçamento",
+				"mantenedor": "wisintainer@gimmepepper.com.br",
+				"admin": "wisintainer@gimmepepper.com.br",
+				"smtp-port": "465",
+				"smtp-host": "mail.gimmepepper.com.br",
 				"habilita-envio-email": true,
-				"auth": "false",
+				"auth": "true",
+				"ssl": "true",
 				"starttls": "true"
 			},
 			"regional": "SC"

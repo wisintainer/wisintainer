@@ -1,18 +1,61 @@
 package br.com.wisintainer.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Orcamento {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import br.com.wisintainer.helper.TipoBanco;
+import br.com.wisintainer.helper.TipoBanco.TiposBanco;
+
+@Entity
+@TipoBanco(banco = TiposBanco.MYSQL)
+@Table(name = "orcamento", schema = "adriano1409_wisintainer")
+public class Orcamento implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
 	private Integer id;
+	
+	@Column(name = "dataCriacao")
 	private Date dataCriacao;
+	
+	@Column(name = "veiculoFabricante")
 	private String veiculoFabricante;
+	
+	@Column(name = "veiculoModelo")
 	private String veiculoModelo;
+	
+	@Column(name = "veiculoAnoFabricao")
 	private Integer veiculoAnoFabricao;
+	
+	@Column(name = "veiculoAnoModelo")
 	private Integer veiculoAnoModelo;
+	
+	@Column(name = "veiculoPlaca")
 	private String veiculoPlaca;
+	
+	@Column(name = "veiculoChassi")
 	private String veiculoChassi;
 
+	@Transient
 	private List<ItemOrcamento> itensOrcamento;
 
 	public Integer getId() {

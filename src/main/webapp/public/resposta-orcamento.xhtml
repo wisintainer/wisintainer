@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:adm="http://github.com/adminfaces"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Orçamento: #{respostaOrcamentoMB.resposta.id_orcamento}</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon.ico']}" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-16x16.png']}" sizes="16x16" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-32x32.png']}" sizes="32x32" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{resource['favicon/favicon-96x96.png']}" sizes="96x96" />
+	<meta name="theme-color" content="#444" />
+	<meta name="mobile-web-app-capable" content="yes" />
+
+	<h:outputScript name="financeiro.js" library="js"></h:outputScript>
+
+
+</h:head>
+<h:body>
+	<p:growl sticky="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage library="images" name="loading-gear.gif" />
+	</p:dialog>
+
+
+
+	<h:form rendered="#{!respostaOrcamentoMB.resposta.fornecedorrespondeu}">
+		<div class="box box-primary">
+			<div class="box-header with-border">RESPOSTA ORÇAMENTO NÚMERO:
+				#{respostaOrcamentoMB.resposta.id_orcamento}</div>
+			<div class="box-header with-border">FORNECEDOR:
+				#{respostaOrcamentoMB.fornecedor.nome}</div>
+			<div class="box-header with-border">
+				<p:commandButton styleClass="btn btn-success"
+					action="#{respostaOrcamentoMB.salvarRespostaOrcamento}"
+					process="@form" value="Enviar Orçamento"
+					oncomplete="location.reload();" />
+			</div>
+		</div>
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<p:dataTable id="itensTable"
+					value="#{respostaOrcamentoMB.itensOrcamento}"
+					rowIndexVar="rowIndex" widgetVar="fitensTable" rows="60" var="item"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+					currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+					<p:column style="text-align: center;" headerText="Item">
+						<p:outputLabel value="#{rowIndex+1}" />
+					</p:column>
+
+					<p:column style="text-align: center;" headerText="Produto/Serviço">
+						<p:outputLabel value="#{item.produtoServico}" />
+					</p:column>
+
+					<p:column style="text-align: center;"
+						headerText="Quantidade Solicitada">
+						<p:outputLabel value="#{item.quantidade}" />
+					</p:column>
+
+					<p:column style="text-align: center;" headerText="Valor">
+						<p:inputText onkeyup="mascara(this, valor);" autoclear="false"
+							value="#{item.valor}" converter="valorMonetarioConverter"
+							style="color:#32a852; width: 150px; height: 50px; font-size: 30px; text-align:center;" />
+					</p:column>
+
+					<p:column style="text-align: center;"
+						headerText="Possui em Estoque?">
+						<p:selectBooleanCheckbox value="#{item.tememestoque}" />
+					</p:column>
+
+				</p:dataTable>
+			</div>
+		</div>
+	</h:form>
+
+
+	<p:panel rendered="#{respostaOrcamentoMB.resposta.fornecedorrespondeu}">
+		<div class="box box-primary">
+			<div class="box-header with-border">ORÇAMENTO RESPONDIDO!</div>
+		</div>
+	</p:panel>
+</h:body>
+</html>

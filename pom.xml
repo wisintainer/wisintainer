@@ -3,11 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>bomdebola</groupId>
-	<artifactId>bomdebola</artifactId>
+	<groupId>wisintainer</groupId>
+	<artifactId>wisintainer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>bomdebola</name>
+	<name>wisintainer</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,6 +20,8 @@
 		<apache.lang.version>3.9</apache.lang.version>
 		<beanUtils.version>1.9.3</beanUtils.version>
 		<jersey2.version>2.28</jersey2.version>
+		<javaxmail.version>1.6.2</javaxmail.version>
+		<sun.mail.version>1.6.2</sun.mail.version>
 	</properties>
 
 	<dependencies>
@@ -194,6 +196,19 @@
 		</dependency>
 
 
+		<!-- Java Mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>${javaxmail.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${sun.mail.version}</version>
+		</dependency>
+
+
 
 	</dependencies>
 	<repositories>
@@ -221,6 +236,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>bomdebola</finalName>
+		<finalName>wisintainer</finalName>
 	</build>
 </project>

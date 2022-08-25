@@ -13,7 +13,7 @@ public class FornecedorDAO extends GenericDAO {
 
 	public FornecedorDAO() {
 		super(HibernateUtil.getSessionMysqlFactory());
-	} 
+	}
 
 	public FornecedorDAO(Session session) {
 		super(HibernateUtil.getSessionMysqlFactory(), session);
@@ -21,17 +21,25 @@ public class FornecedorDAO extends GenericDAO {
 
 	public List<Fornecedor> buscarTodosFornecedoresSqlNativo() throws Exception {
 		SQLBuilder sb = new SQLBuilder(Mode.SQL);
-		sb.append(" SELECT * FROM fornecedor ");
+		sb.append(" SELECT * FROM fornecedor LIMIT 8 ");
 
 		return getArrayList(sb, Fornecedor.class);
 	}
-	
+
 	public List<Fornecedor> buscarFornecedoresPorNome(String nome) throws Exception {
 		SQLBuilder sb = new SQLBuilder(Mode.SQL);
 		sb.append(" SELECT * FROM fornecedor WHERE nome like :nome ");
 		sb.setParameterLike("nome", nome);
 
 		return getArrayList(sb, Fornecedor.class);
+	}
+
+	public Fornecedor buscarFornecedorPorId(Integer id) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append("SELECT * FROM fornecedor WHERE id = :id ");
+		sb.setParameter("id", id);
+
+		return getSingle(sb, Fornecedor.class);
 	}
 
 	public List<Fornecedor> buscarTodosFornecedores() throws Exception {
@@ -41,11 +49,28 @@ public class FornecedorDAO extends GenericDAO {
 		return getArrayList(sb, Fornecedor.class);
 	}
 
-	public Fornecedor buscarFornecedoresPorCnpj(String cnpj) throws Exception {
-		SQLBuilder sb = new SQLBuilder(Mode.HQL);
+	public Fornecedor buscarFornecedorPorCnpj(String cnpj) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
 		sb.append("FROM Fornecedor WHERE f where f.cnpj = :cnpj");
 		sb.setParameter("cnpj", cnpj);
 
 		return getSingle(sb, Fornecedor.class);
+	}
+
+	public List<Fornecedor> buscarFornecedoresPorCnpj(String cnpj) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append("SELECT * FROM fornecedor WHERE cnpj = :cnpj");
+		sb.setParameter("cnpj", cnpj);
+
+		return getArrayList(sb, Fornecedor.class);
+	}
+
+	public List<Fornecedor> buscarFornecedoresPorNomeeCnpj(String nome, String cnpj) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append("SELECT * FROM fornecedor WHERE cnpj = :cnpj AND nome like :nome");
+		sb.setParameterLike("nome", nome);
+		sb.setParameter("cnpj", cnpj);
+
+		return getArrayList(sb, Fornecedor.class);
 	}
 }

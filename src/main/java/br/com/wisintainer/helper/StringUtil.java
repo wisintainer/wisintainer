@@ -17,10 +17,7 @@ public class StringUtil {
 
 	public static int compareTrimmedWithoutSpecialChars(String string1, String string2) {
 		if (string1 != null && string2 != null) {
-			return compare(
-				removerCaracteresEspeciais(string1.trim()),
-				removerCaracteresEspeciais(string2.trim())
-			);
+			return compare(removerCaracteresEspeciais(string1.trim()), removerCaracteresEspeciais(string2.trim()));
 		} else {
 			return compare(string1, string2);
 		}
@@ -35,20 +32,11 @@ public class StringUtil {
 	}
 
 	public static int compare(String string1, String string2) {
-		if (
-			string1 == null
-			&& string2 == null
-		) {
+		if (string1 == null && string2 == null) {
 			return 0;
-		} else if (
-			string1 == null
-			&& string2 != null
-		) {
+		} else if (string1 == null && string2 != null) {
 			return -1;
-		} else if (
-			string1 != null
-			&& string2 == null
-		) {
+		} else if (string1 != null && string2 == null) {
 			return 1;
 		} else {
 			return string1.compareTo(string2);
@@ -60,13 +48,10 @@ public class StringUtil {
 	 *
 	 * Ex.: subString("123456789", 3, 6) => "3456".
 	 *
-	 * @param alvo
-	 *            String alvo a ter retirada uma substring.
-	 * @param inicio
-	 *            Posição inicial da substring, começa com 1.
-	 * @param fim
-	 *            Posição final da substring, posição do último caractere a ser
-	 *            considerado.
+	 * @param alvo   String alvo a ter retirada uma substring.
+	 * @param inicio Posição inicial da substring, começa com 1.
+	 * @param fim    Posição final da substring, posição do último caractere a ser
+	 *               considerado.
 	 * @return Substring da string alvo.
 	 */
 	public static String subString(String alvo, Integer inicio, Integer fim) {
@@ -80,17 +65,16 @@ public class StringUtil {
 			return "";
 		}
 	}
+
 	/**
-	 * Transforma um número inteiro em string e preenche os espaços a esquerda,
-	 * de um dado tamanho informado, com zeros.
+	 * Transforma um número inteiro em string e preenche os espaços a esquerda, de
+	 * um dado tamanho informado, com zeros.
 	 *
 	 * Ex.: zeroPad(123, 6) => "000123".
 	 *
-	 * @param alvo
-	 *            Inteiro alvo a ser transformado em string e ter zeros
-	 *            acrescentados à esquerda.
-	 * @param tamanho
-	 *            Tamanho final da string de saída.
+	 * @param alvo    Inteiro alvo a ser transformado em string e ter zeros
+	 *                acrescentados à esquerda.
+	 * @param tamanho Tamanho final da string de saída.
 	 * @return String feita a partir do número inteiro informado preenchida com
 	 *         zeros à esquerda quando possível.
 	 */
@@ -103,10 +87,8 @@ public class StringUtil {
 	 *
 	 * Ex.: zeroPad("123", 6) => "000123".
 	 *
-	 * @param alvo
-	 *            String alvo a ter zeros acrescentados à esquerda.
-	 * @param tamanho
-	 *            Tamanho final da string de saída.
+	 * @param alvo    String alvo a ter zeros acrescentados à esquerda.
+	 * @param tamanho Tamanho final da string de saída.
 	 * @return String preenchida com zeros à esquerda quando possível.
 	 */
 	public static String zeroPad(String alvo, Integer tamanho) {
@@ -117,7 +99,7 @@ public class StringUtil {
 	 * Preenche uma string com espaços a sua direita a partir de um tamanho
 	 * informado.
 	 *
-	 * Ex.: rightSpacePad("Abc", 6) => "Abc   ".
+	 * Ex.: rightSpacePad("Abc", 6) => "Abc ".
 	 *
 	 * @param alvo
 	 * @param tamanho
@@ -147,16 +129,18 @@ public class StringUtil {
 		return subString(leftSpacePad(alvo, tamanho), 1, tamanho);
 	}
 
-	public static String removerAcentosDB2(String texto){
-		String[] substituir = {"Á","É","Í","Ó","Ú","Ü","Ã","Õ","Ç","Â","Ê","Ô","À","á","é","í","ó","ú","ü","ã","õ","ç","â","ê","ô","à"};
-		String[] substituto = {"A","E","I","O","U","U","A","O","C","A","E","O","A","a","e","i","o","u","u","a","o","c","a","e","o","a"};
+	public static String removerAcentosDB2(String texto) {
+		String[] substituir = { "Á", "É", "Í", "Ó", "Ú", "Ü", "Ã", "Õ", "Ç", "Â", "Ê", "Ô", "À", "á", "é", "í", "ó",
+				"ú", "ü", "ã", "õ", "ç", "â", "ê", "ô", "à" };
+		String[] substituto = { "A", "E", "I", "O", "U", "U", "A", "O", "C", "A", "E", "O", "A", "a", "e", "i", "o",
+				"u", "u", "a", "o", "c", "a", "e", "o", "a" };
 		String retorno = texto;
-		for(int i = 0; i < substituir.length; i++){
-			retorno = " REPLACE("+ retorno + ", '" + substituir[i] + "','" + substituto[i] + "') ";
+		for (int i = 0; i < substituir.length; i++) {
+			retorno = " REPLACE(" + retorno + ", '" + substituir[i] + "','" + substituto[i] + "') ";
 		}
 		return retorno;
 	}
-	
+
 	public static String removerAcentos(final String texto) {
 		String retorno = Normalizer.normalize(texto, Normalizer.Form.NFD);
 		retorno = retorno.replaceAll("[^\\p{ASCII}]", "");
@@ -204,10 +188,9 @@ public class StringUtil {
 	}
 
 	/**
-	 * CEP - resultado: 81580-200 format("#####-###", "81580200"); CPF -
-	 * resultado 012.345.699-01 format("###.###.###-##", "01234569905"); CNPJ -
-	 * resultado: 01.234.569/9052-34 format("##.###.###/####-##",
-	 * "01234569905234");
+	 * CEP - resultado: 81580-200 format("#####-###", "81580200"); CPF - resultado
+	 * 012.345.699-01 format("###.###.###-##", "01234569905"); CNPJ - resultado:
+	 * 01.234.569/9052-34 format("##.###.###/####-##", "01234569905234");
 	 */
 	public static String format(String pattern, Object value) {
 		MaskFormatter mask;
@@ -250,10 +233,7 @@ public class StringUtil {
 	public static Boolean isValidLenght(String texto, Integer minimo, Integer maximo) {
 		if (isEmpty(texto)) {
 			return false;
-		} else if (
-			texto.length() < minimo
-			|| texto.length() > maximo
-		) {
+		} else if (texto.length() < minimo || texto.length() > maximo) {
 			return false;
 		}
 
@@ -293,10 +273,7 @@ public class StringUtil {
 	}
 
 	public static Boolean equals(String first, String second, Boolean ignoreCase) {
-		if (
-			first == null
-			|| second == null
-		) {
+		if (first == null || second == null) {
 			if (first == null && second == null) {
 				return true;
 			} else {
@@ -320,106 +297,105 @@ public class StringUtil {
 	}
 
 	/**
-	 * Truca texto até o limite estabelecido adicionando a string '...' ao final. O metodo ja considera qtdMaxima -3 para adicionar os 3 pontos.
+	 * Truca texto até o limite estabelecido adicionando a string '...' ao final. O
+	 * metodo ja considera qtdMaxima -3 para adicionar os 3 pontos.
+	 * 
 	 * @param qtdMaxima
 	 * @param texto
 	 * @return
 	 */
-	public static String truncarTexto(String texto,Integer qtdMaxima)
-	{
-		if(texto == null)
-		{
+	public static String truncarTexto(String texto, Integer qtdMaxima) {
+		if (texto == null) {
 			return "...";
 		}
-		
-		if(texto.length() > qtdMaxima)
-		{
-			return subString(texto, 1, qtdMaxima-3) + "...";
-		}else
-		{
+
+		if (texto.length() > qtdMaxima) {
+			return subString(texto, 1, qtdMaxima - 3) + "...";
+		} else {
 			return texto;
 		}
 	}
-	
+
 	/**
-	 * Truca texto até o limite estabelecido adicionando a string '...' ao final. O metodo ja considera qtdMaxima -3 para adicionar os 3 pontos.
+	 * Truca texto até o limite estabelecido adicionando a string '...' ao final. O
+	 * metodo ja considera qtdMaxima -3 para adicionar os 3 pontos.
+	 * 
 	 * @param qtdMaxima
 	 * @param texto
 	 * @return
 	 */
-	public static String trucarTextoSemReticencias(String texto,Integer qtdMaxima)
-	{
-		if(texto == null)
-		{
+	public static String trucarTextoSemReticencias(String texto, Integer qtdMaxima) {
+		if (texto == null) {
 			return "...";
 		}
 		return subString(texto, 1, qtdMaxima);
 	}
-	
-	public static String montaTelefoneDDD(String ddd, String telefone)
-	{
+
+	public static String montaTelefoneDDD(String ddd, String telefone) {
 		String retDDD = "00";
 		String retFone = "";
-		if(StringUtils.isNoneBlank(ddd) && ddd.trim().length() == 2)
-		{
+		if (StringUtils.isNoneBlank(ddd) && ddd.trim().length() == 2) {
 			retDDD = removeCaracteresEspeciaisEEspaco(ddd);
 		}
-		
-		if(StringUtils.isNoneBlank(telefone))
-		{
+
+		if (StringUtils.isNoneBlank(telefone)) {
 			retFone = removeCaracteresEspeciaisEEspaco(telefone);
 		}
 		return retDDD + retFone;
 	}
-	
+
 	public static boolean isJSONObject(Object texto) {
 		try {
 			new JSONObject(texto.toString());
-		} catch(JSONException e) {
+		} catch (JSONException e) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	public static String encodeURLValue(String value) {
-        try {
-            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException ex) {
-            throw new RuntimeException(ex.getCause());
-        }
-    }
-	
-    public static String firstAndLastName(String value) {
-        String[] vetorString = value.split(" ");
-        ArrayList<String> arr = new ArrayList<String>();
+		try {
+			return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException ex) {
+			throw new RuntimeException(ex.getCause());
+		}
+	}
 
-        for (int i = vetorString.length - 1; i >= 0; i--) {
-            arr.add(vetorString[i]);
-        }
+	public static String firstAndLastName(String value) {
+		String[] vetorString = value.split(" ");
+		ArrayList<String> arr = new ArrayList<String>();
 
-        return arr.get(arr.size() - 1) + arr.get(0);
-    }
+		for (int i = vetorString.length - 1; i >= 0; i--) {
+			arr.add(vetorString[i]);
+		}
 
-    public static String lastName(String value) {
-        String[] vetorString = value.split(" ");
-        ArrayList<String> arr = new ArrayList<String>();
+		return arr.get(arr.size() - 1) + arr.get(0);
+	}
 
-        for (int i = vetorString.length - 1; i >= 0; i--) {
-            arr.add(vetorString[i]);
-        }
+	public static String lastName(String value) {
+		String[] vetorString = value.split(" ");
+		ArrayList<String> arr = new ArrayList<String>();
 
-        return arr.get(0);
-    }
+		for (int i = vetorString.length - 1; i >= 0; i--) {
+			arr.add(vetorString[i]);
+		}
 
-    public static String firstName(String value) {
-        String[] vetorString = value.split(" ");
-        ArrayList<String> arr = new ArrayList<String>();
+		return arr.get(0);
+	}
 
-        for (int i = vetorString.length - 1; i >= 0; i--) {
-            arr.add(vetorString[i]);
-        }
+	public static String firstName(String value) {
+		String[] vetorString = value.split(" ");
+		ArrayList<String> arr = new ArrayList<String>();
 
-        return arr.get(arr.size() - 1);
-    }
+		for (int i = vetorString.length - 1; i >= 0; i--) {
+			arr.add(vetorString[i]);
+		}
+
+		return arr.get(arr.size() - 1);
+	}
+
+	public static String codificaTexto(String texto) {
+		return java.util.Base64.getEncoder().encodeToString(texto.getBytes());
+	}
 }

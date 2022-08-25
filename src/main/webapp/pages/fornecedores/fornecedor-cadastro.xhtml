@@ -7,32 +7,67 @@
 	template="#{layoutMB.template}">
 
 	<ui:define name="body">
-		<h:form>
+		<h:form id="frm" prependId="false">
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<p:commandButton action="fornecedor-cadastro?faces-redirect=true"
-						ajax="false" icon="fa fa-plus" value="Novo"
+
+					<p:commandButton icon="fa fa-plus" value="Novo Fornecedor"
+						oncomplete="PF('wVnovoFornecedor').show()"
 						styleClass="btn-primary" />
+
 					<p:spacer width="5" />
-					<p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash"
-						styleClass="btn-danger" process="@form" update="@form" />
+
+					<p:commandButton value="Editar Selecionado" icon="fa fa-pencil"
+						oncomplete="PF('wVeditarFornecedor').show()"
+						update="dialogEditarFornecedor" styleClass="btn-warning" />
+
 					<p:spacer width="5" />
-					<p:commandButton value="Olhar Selecionado(s)"
-						oncomplete="PF('tarefaSelecionadas').show()"
-						update="@(.ui-dialog)" styleClass="btn-info" icon="fa fa-search" />
 					<p:separator />
 
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-2 ui-sm-1">
+									<div class="ui-material">
+										<p:inputText id="nome_busca" placeholder="Nome do Fornecedor"
+											value="#{fornecedorMB.buscaFornecedor.nome}" />
+										<p:outputLabel for="nome_busca" value="Nome do Fornecedor" />
+										<p:message for="nome_busca" />
+									</div>
+								</div>
 
+								<div class="ui-g-2 ui-sm-1">
+									<div class="ui-material">
+										<p:inputText id="cnpj_busca" placeholder="CNPJ"
+											value="#{fornecedorMB.buscaFornecedor.cnpj}" />
+										<p:outputLabel for="cnpj_busca" value="CNPJ" />
+										<p:message for="cnpj_busca" />
+									</div>
+								</div>
+
+								<div class="ui-g-1 ui-sm-1">
+									<div class="ui-material">
+										<p:commandButton id="btn_buscar" update="fornecedoresTable"
+											value="Buscar"
+											action="#{fornecedorMB.buscarFornecedoresPorParametro}"
+											styleClass="btn-primary" process="@form" />
+
+										<p:defaultCommand target="btn_buscar" />
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<p:dataTable selectionMode="single"
-						selection="#{orcamentoMB.fornecedorSelecionadoParaAdicionar}"
+						selection="#{fornecedorMB.fornecedorSelecionado}"
 						id="fornecedoresTable" widgetVar="fornecedorTable" rows="10"
 						value="#{fornecedorMB.fornecedores}" var="fornecedor"
 						paginator="true" paginatorPosition="bottom"
 						rowKey="#{fornecedor.id}"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
-
-
 
 						<p:column headerText="id">
 							<p:outputLabel value="#{fornecedor.id}" />
@@ -63,18 +98,187 @@
 				</div>
 			</div>
 
+
+
 		</h:form>
 
-		<p:dialog header="Tarefas Selecionadas" widgetVar="tarefaSelecionadas"
-			height="250" width="400" responsive="true" styleClass="box-success">
-			<p:dataList id="listaTarefaSelecionadas"
-				value="#{listaTarefaMB.tarefaSelecionadas}" var="tarefa"
-				type="definition">
-	                        
-	                        ID: #{tarefa.id} - Título: #{tarefa.titulo} - Descrição: #{tarefa.descricao} - Status: #{tarefa.status.descricao}
+		<p:dialog header="Novo Fornecedor" widgetVar="wVnovoFornecedor"
+			id="dialogNovoFornecedor" width="800px" height="200px"
+			resizable="false" closable="false" modal="true" responsive="true"
+			styleClass="box-success">
+			<h:form prependId="false">
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="nome" placeholder="Nome do Fornecedor"
+									value="#{fornecedorMB.novoFornecedor.nome}" />
+								<p:outputLabel for="nome" value="Nome do Fornecedor" />
+								<p:message for="nome" />
+							</div>
+						</div>
 
-	            </p:dataList>
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="cnpj" placeholder="CNPJ"
+									value="#{fornecedorMB.novoFornecedor.cnpj}" />
+								<p:outputLabel for="cnpj" value="CNPJ" />
+								<p:message for="cnpj" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-4 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="email" placeholder="E-mail"
+									value="#{fornecedorMB.novoFornecedor.email}" />
+								<p:outputLabel for="email" value="E-mail" />
+								<p:message for="email" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="telefone" placeholder="Telefone"
+									value="#{fornecedorMB.novoFornecedor.telefone}" />
+								<p:outputLabel for="telefone" value="Telefone" />
+								<p:message for="telefone" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="endereco" placeholder="Endereço"
+									value="#{fornecedorMB.novoFornecedor.endereco}" />
+								<p:outputLabel for="endereco" value="Endereço" />
+								<p:message for="endereco" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Cadastrar" process="@form"
+								update="dialogNovoFornecedor"
+								action="#{fornecedorMB.salvarFornecedor}"
+								styleClass="btn btn-success" />
+						</div>
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton oncomplete="PF('wVnovoFornecedor').hide()"
+								update="dialogNovoFornecedor"
+								action="#{fornecedorMB.limparNovoFornecedor}" value="Cancelar"
+								styleClass="btn btn-danger" />
+						</div>
+					</div>
+
+				</div>
+			</h:form>
 		</p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+		<p:dialog header="Editar Fornecedor" widgetVar="wVeditarFornecedor"
+			id="dialogEditarFornecedor" width="800px" height="200px"
+			resizable="false" closable="false" modal="true" responsive="true"
+			styleClass="box-success">
+			<h:form prependId="false">
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="nomeEditar" placeholder="Nome do Fornecedor"
+									value="#{fornecedorMB.fornecedorSelecionado.nome}" />
+								<p:outputLabel for="nomeEditar" value="Nome do Fornecedor" />
+								<p:message for="nomeEditar" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="cnpjEditar" placeholder="CNPJ"
+									value="#{fornecedorMB.fornecedorSelecionado.cnpj}" />
+								<p:outputLabel for="cnpjEditar" value="CNPJ" />
+								<p:message for="cnpjEditar" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-4 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="emailEditar" placeholder="E-mail"
+									value="#{fornecedorMB.fornecedorSelecionado.email}" />
+								<p:outputLabel for="emailEditar" value="E-mail" />
+								<p:message for="emailEditar" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="telefoneEditar" placeholder="Telefone"
+									value="#{fornecedorMB.fornecedorSelecionado.telefone}" />
+								<p:outputLabel for="telefoneEditar" value="Telefone" />
+								<p:message for="telefoneEditar" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="enderecoEditar" placeholder="Endereço"
+									value="#{fornecedorMB.fornecedorSelecionado.endereco}" />
+								<p:outputLabel for="enderecoEditar" value="Endereço" />
+								<p:message for="enderecoEditar" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Salvar" process="@form"
+								update="fornecedoresTable"
+								action="#{fornecedorMB.editarFornecedor}"
+								styleClass="btn btn-success" />
+						</div>
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton oncomplete="PF('wVeditarFornecedor').hide()"
+								update="dialogNovoFornecedor"
+								action="#{fornecedorMB.limparFornecedorSelecionado}"
+								value="Cancelar" styleClass="btn btn-danger" />
+						</div>
+					</div>
+
+				</div>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</ui:define>
 
 </ui:composition>

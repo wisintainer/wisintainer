@@ -26,6 +26,10 @@ public class Application {
 	public static boolean getPermissaoCriarorcamento() {
 		return true;
 	}
+	
+	public static boolean getPermissaoRespondercamento() {
+		return true;
+	}
 
 	public static ExternalContext getExternalContext() {
 		FacesContext context = getContext();
