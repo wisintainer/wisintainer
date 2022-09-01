@@ -28,35 +28,37 @@ public class Orcamento implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Integer id;
-	
+
 	@Column(name = "dataCriacao")
 	private Date dataCriacao;
-	
+
 	@Column(name = "veiculoFabricante")
 	private String veiculoFabricante;
-	
+
 	@Column(name = "veiculoModelo")
 	private String veiculoModelo;
-	
+
 	@Column(name = "veiculoAnoFabricao")
 	private Integer veiculoAnoFabricao;
-	
+
 	@Column(name = "veiculoAnoModelo")
 	private Integer veiculoAnoModelo;
-	
+
 	@Column(name = "veiculoPlaca")
 	private String veiculoPlaca;
-	
+
 	@Column(name = "veiculoChassi")
 	private String veiculoChassi;
 
 	@Transient
 	private List<ItemOrcamento> itensOrcamento;
+
+
 
 	public Integer getId() {
 		return id;
@@ -129,5 +131,10 @@ public class Orcamento implements Serializable {
 	public void setItensOrcamento(List<ItemOrcamento> itensOrcamento) {
 		this.itensOrcamento = itensOrcamento;
 	}
+
+	
+	
+	
+	
 
 }

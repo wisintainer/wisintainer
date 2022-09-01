@@ -39,6 +39,12 @@ public class RespostaOrcamento implements Serializable {
 	@Column(name = "valor")
 	private Double valor;
 
+	@Column(name = "nome_item")
+	private String nome_item;
+
+	@Column(name = "quantidade")
+	private Integer quantidade;
+
 	@Column(name = "tememestoque")
 	private boolean tememestoque;
 
@@ -88,6 +94,22 @@ public class RespostaOrcamento implements Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	public String getNome_item() {
+		return nome_item;
+	}
+
+	public void setNome_item(String nome_item) {
+		this.nome_item = nome_item;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }

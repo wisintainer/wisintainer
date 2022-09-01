@@ -27,6 +27,14 @@ public class Application {
 		return true;
 	}
 	
+	public static boolean getPermissaoGerenciarorcamento() {
+		return true;
+	}
+	
+	public static boolean getPermissaoExaminarRespostaOrcamento() {
+		return true;
+	}
+	
 	public static boolean getPermissaoRespondercamento() {
 		return true;
 	}

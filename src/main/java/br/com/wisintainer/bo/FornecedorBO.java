@@ -49,4 +49,8 @@ public class FornecedorBO implements Serializable {
 	public void atualizarFornecedor(Fornecedor fornecedor) throws Exception {
 		fornecedorDao.update(fornecedor);
 	}
+
+	public List<Fornecedor> buscarFornecedoresQueResponderamOorcamento(Integer idOrcamento) throws Exception {
+		return fornecedorDao.buscarFornecedoresQueResponderamOorcamento(idOrcamento);
+	}
 }

@@ -15,7 +15,7 @@ import br.com.wisintainer.helper.TipoBanco.TiposBanco;
 @Entity
 @TipoBanco(banco = TiposBanco.MYSQL)
 @Table(name = "respostafornecedor", schema = "adriano1409_wisintainer")
-public class ResposataFornecedor implements Serializable {
+public class RespostaFornecedor implements Serializable {
 
 	/**
 	 * 
@@ -32,12 +32,6 @@ public class ResposataFornecedor implements Serializable {
 
 	@Column(name = "id_fornecedor")
 	private Integer id_fornecedor;
-
-	@Column(name = "valor")
-	private Double valor;
-
-	@Column(name = "tememestoque")
-	private boolean tememestoque;
 
 	@Column(name = "fornecedorrespondeu")
 	private boolean fornecedorrespondeu;
@@ -64,22 +58,6 @@ public class ResposataFornecedor implements Serializable {
 
 	public void setId_fornecedor(Integer id_fornecedor) {
 		this.id_fornecedor = id_fornecedor;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-
-	public boolean isTememestoque() {
-		return tememestoque;
-	}
-
-	public void setTememestoque(boolean tememestoque) {
-		this.tememestoque = tememestoque;
 	}
 
 	public boolean isFornecedorrespondeu() {

@@ -25,4 +25,5 @@ public class RespostaOrcamentoDAO extends GenericDAO {
 
 		return getArrayList(sb, RespostaOrcamento.class);
 	}
+
 }

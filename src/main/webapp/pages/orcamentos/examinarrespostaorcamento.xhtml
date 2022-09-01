@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Orçamento Número: #{detalheOrcamentoMB.orcamento.id} (						<p:outputLabel
+			value="#{detalheOrcamentoMB.orcamento.dataCriacao}">
+			<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
+				pattern="dd/MM/yyyy" />
+		</p:outputLabel>)
+    </ui:define>
+
+	<ui:define name="body">
+
+		<h:form prependId="false">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<div class="ui-g-12 ui-sm-1">
+						<p:outputLabel styleClass="badge bg-danger"
+							value="Fabricante: &#160; #{detalheOrcamentoMB.orcamento.veiculoFabricante}" />
+					</div>
+					<div class="ui-g-12 ui-sm-1">
+						<p:outputLabel styleClass="badge bg-danger"
+							value="Modelo: &#160; #{detalheOrcamentoMB.orcamento.veiculoModelo}" />
+					</div>
+					<div class="ui-g-12 ui-sm-1">
+						<p:outputLabel styleClass="badge bg-danger"
+							value="Placa: &#160; #{detalheOrcamentoMB.orcamento.veiculoPlaca}" />
+					</div>
+					<div class="ui-g-12 ui-sm-1">
+						<p:outputLabel styleClass="badge bg-danger"
+							value="Chassi: &#160; #{detalheOrcamentoMB.orcamento.veiculoChassi}" />
+					</div>
+				</div>
+			</div>
+			<div class="box box-primary">
+				<div class="ui-g-6 ui-sm-1">
+					<p:dataTable id="fornecedoresResponderamTable"
+						value="#{detalheOrcamentoMB.fornecedoresQueResponderam}"
+						emptyMessage="Nenhum Fornecedor respondeu a este Orçamento."
+						widgetVar="fornecedoresResponderamTable" rows="30"
+						var="fornecedor" paginator="true" paginatorPosition="bottom"
+						rowKey="#{fornecedor.id}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+						<p:column headerText="Fornecedor">
+							<p:outputLabel value="#{fornecedor.nome}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Ação">
+							<p:commandButton icon="fa fa-search" value="Examinar"
+								onclick="window.open('#{request.contextPath}/pages/orcamentos/detalhe-orcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
+								styleClass="btn-primary" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</h:form>
+		<p:spacer />
+	</ui:define>
+
+</ui:composition>

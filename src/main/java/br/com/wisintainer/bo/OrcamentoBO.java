@@ -64,8 +64,7 @@ public class OrcamentoBO implements Serializable {
 			Integer idPreRespostaSalva = salvarPreRespostaItem(orcamento, fornecedor);
 			StringUtil su = new StringUtil();
 			String idPreRespostaSalvaCodificado = su.codificaTexto(idPreRespostaSalva.toString());
-			String link = Application.getRequestBaseURL() + "public/resposta-orcamento.xhtml?identify="
-					+ idPreRespostaSalvaCodificado;
+			String link = Application.getRequestBaseURL() + "public/resposta-orcamento.xhtml?identify=" + idPreRespostaSalvaCodificado;
 
 			sb = new StringBuilder();
 
@@ -81,8 +80,7 @@ public class OrcamentoBO implements Serializable {
 			sb.append("<hr>");
 			sb.append("<p> <b> DADOS DESTE ORÇAMENTO: </b> </p>");
 			sb.append("<p> Placa:" + orcamento.getVeiculoPlaca() + "</p>");
-			sb.append("<p> Data do envio do E-mail: " + hoje.getDate() + "/" + hoje.getMonth() + "/" + hoje.getYear()
-					+ "</p>");
+			sb.append("<p> Data do envio do E-mail: " + hoje.getDate() + "/" + hoje.getMonth() + "/" + hoje.getYear() + "</p>");
 			sb.append("<p> Hora do envio do E-mail: " + hoje.getHours() + ":" + hoje.getMinutes() + "</p>");
 			sb.append("<hr>");
 			sb.append("<p> Atenciosamente </p>");
@@ -97,6 +95,10 @@ public class OrcamentoBO implements Serializable {
 			sendEmail.sendEmail("A.D.A.S.C Orçamento", fornecedor.getEmail(), sb.toString(), true);
 		}
 
+	}
+
+	public Orcamento buscarOrcamentoPorId(Integer id) throws Exception {
+		return orcamentoDao.buscarOrcamentoPorId(id);
 	}
 
 }

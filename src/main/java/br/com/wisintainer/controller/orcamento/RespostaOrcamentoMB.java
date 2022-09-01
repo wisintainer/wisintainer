@@ -25,14 +25,14 @@ import br.com.wisintainer.model.Application;
 import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.ItemOrcamento;
 import br.com.wisintainer.model.Orcamento;
-import br.com.wisintainer.model.ResposataFornecedor;
+import br.com.wisintainer.model.RespostaFornecedor;
 import br.com.wisintainer.model.RespostaOrcamento;
 
 @ViewScoped
 @Named("respostaOrcamentoMB")
 public class RespostaOrcamentoMB extends AbstractMB {
 
-	private ResposataFornecedor resposta;
+	private RespostaFornecedor resposta;
 	private Fornecedor fornecedor;
 	private List<ItemOrcamento> itensOrcamento;
 
@@ -61,7 +61,7 @@ public class RespostaOrcamentoMB extends AbstractMB {
 
 	@PostConstruct
 	private void inicializar() throws Exception {
-		this.resposta = new ResposataFornecedor();
+		this.resposta = new RespostaFornecedor();
 		this.fornecedor = new Fornecedor();
 		this.itensOrcamento = new ArrayList<ItemOrcamento>();
 		this.envioDoOrcamentoLiberado = false;
@@ -69,11 +69,11 @@ public class RespostaOrcamentoMB extends AbstractMB {
 		buscarRespostaOrcamentoPorId(decodificarIdResposta(extrairDadosRequisicao()));
 	}
 
-	public ResposataFornecedor getResposta() {
+	public RespostaFornecedor getResposta() {
 		return resposta;
 	}
 
-	public void setResposta(ResposataFornecedor resposta) {
+	public void setResposta(RespostaFornecedor resposta) {
 		this.resposta = resposta;
 	}
 
@@ -135,6 +135,8 @@ public class RespostaOrcamentoMB extends AbstractMB {
 				respostaOrcamento.setId_resposta(this.resposta.getId());
 				respostaOrcamento.setTememestoque(item.isTememestoque());
 				respostaOrcamento.setValor(item.getValor());
+				respostaOrcamento.setNome_item(item.getProdutoServico());
+				respostaOrcamento.setQuantidade(item.getQuantidade());
 
 				validaSePodeEnviar();
 				if (envioDoOrcamentoLiberado) {

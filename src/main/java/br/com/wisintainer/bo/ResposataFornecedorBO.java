@@ -6,10 +6,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.wisintainer.dao.ResposataFornecedorDAO;
+import br.com.wisintainer.model.DetalhamentoResposta;
 import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.ItemOrcamento;
 import br.com.wisintainer.model.Orcamento;
-import br.com.wisintainer.model.ResposataFornecedor;
+import br.com.wisintainer.model.RespostaFornecedor;
+import br.com.wisintainer.model.RespostaOrcamento;
 
 public class ResposataFornecedorBO implements Serializable {
 
@@ -25,19 +27,23 @@ public class ResposataFornecedorBO implements Serializable {
 	// poder enviar ao fornecedor por e-mail.
 	public Integer salvarPreResposta(Orcamento orcamento, Fornecedor fornecedor) throws Exception {
 
-		ResposataFornecedor resposta = new ResposataFornecedor();
+		RespostaFornecedor resposta = new RespostaFornecedor();
 		resposta.setId_fornecedor(fornecedor.getId());
 		resposta.setId_orcamento(orcamento.getId());
 
 		return (Integer) resposataFornecedorDao.saveReturningSaved(resposta);
 	}
 
-	public ResposataFornecedor buscarRespostaOrcamentoPorId(Integer idResposta) throws Exception {
+	public RespostaFornecedor buscarRespostaOrcamentoPorId(Integer idResposta) throws Exception {
 		return resposataFornecedorDao.buscarRespostaOrcamentoPorId(idResposta);
 	}
 
 	public void atualizarResposta(Integer idResposta) throws Exception {
 		resposataFornecedorDao.atualizarResposta(idResposta);
+	}
+
+	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoId(Integer formecedorId, Integer orcamentoId) throws Exception {
+		return resposataFornecedorDao.buscarRespostasOrcamentoPorOrcamentoId(formecedorId, orcamentoId);
 	}
 
 }

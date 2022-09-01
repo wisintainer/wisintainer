@@ -73,4 +73,15 @@ public class FornecedorDAO extends GenericDAO {
 
 		return getArrayList(sb, Fornecedor.class);
 	}
+
+	public List<Fornecedor> buscarFornecedoresQueResponderamOorcamento(Integer idOrcamento) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append("SELECT F.* FROM fornecedor F");
+		sb.append("INNER JOIN respostafornecedor rf on rf.id_fornecedor = F.id");
+		sb.append("WHERE rf.id_orcamento = :id AND fornecedorrespondeu = true");
+
+		sb.setParameter("id", idOrcamento);
+
+		return getArrayList(sb, Fornecedor.class);
+	}
 }
