@@ -46,10 +46,10 @@ public class ResposataFornecedorDAO extends GenericDAO {
 
 	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoId(Integer formecedorId, Integer orcamentoId) throws Exception {
 		SQLBuilder sb = new SQLBuilder(Mode.SQL);
-		sb.append("SELECT item.produtoServico, item.quantidade, ro.valor, ro.tememestoque from respostaorcamento ro");
+		sb.append("SELECT * from respostaorcamento ro");
 		sb.append("INNER JOIN itemorcamento item ON item.id = ro.id_item");
 		sb.append("INNER JOIN respostafornecedor rf ON rf.id = ro.id_resposta");
-		sb.append("WHERE rf.id_fornecedor = 7 AND ro.id_orcamento = 44");
+		sb.append("WHERE rf.id_fornecedor = :formecedorId AND ro.id_orcamento = :orcamentoId");
 		sb.setParameter("formecedorId", formecedorId);
 		sb.setParameter("orcamentoId", orcamentoId);
 

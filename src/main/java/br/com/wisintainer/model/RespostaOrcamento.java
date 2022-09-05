@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Formula;
 
 import br.com.wisintainer.helper.TipoBanco;
 import br.com.wisintainer.helper.TipoBanco.TiposBanco;
@@ -47,6 +50,13 @@ public class RespostaOrcamento implements Serializable {
 
 	@Column(name = "tememestoque")
 	private boolean tememestoque;
+
+	@Column(name = "id_fornecedor")
+	private Integer id_fornecedor;
+
+
+	@Formula(value= "(SELECT f.nome FROM fornecedor f WHERE f.id = id_fornecedor LIMIT 1)")
+	private String nomeFornecedor;
 
 	public Integer getId() {
 		return id;
@@ -110,6 +120,23 @@ public class RespostaOrcamento implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public Integer getId_fornecedor() {
+		return id_fornecedor;
+	}
+
+	public void setId_fornecedor(Integer id_fornecedor) {
+		this.id_fornecedor = id_fornecedor;
+	}
+
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
 	}
 
 }

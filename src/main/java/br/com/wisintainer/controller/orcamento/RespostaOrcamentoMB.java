@@ -137,6 +137,7 @@ public class RespostaOrcamentoMB extends AbstractMB {
 				respostaOrcamento.setValor(item.getValor());
 				respostaOrcamento.setNome_item(item.getProdutoServico());
 				respostaOrcamento.setQuantidade(item.getQuantidade());
+				respostaOrcamento.setId_fornecedor(this.resposta.getId_fornecedor());
 
 				validaSePodeEnviar();
 				if (envioDoOrcamentoLiberado) {
