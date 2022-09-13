@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.omg.CORBA.RepositoryIdHelper;
 import org.omnifaces.util.Faces;
 
 import br.com.wisintainer.bo.FornecedorBO;
@@ -108,8 +109,7 @@ public class RespostaOrcamentoMB extends AbstractMB {
 	}
 
 	public String extrairDadosRequisicao() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		if (request.getParameter("identify") != null && !request.getParameter("identify").equals("")) {
 			return request.getParameter("identify");
 		}
@@ -138,6 +138,8 @@ public class RespostaOrcamentoMB extends AbstractMB {
 				respostaOrcamento.setNome_item(item.getProdutoServico());
 				respostaOrcamento.setQuantidade(item.getQuantidade());
 				respostaOrcamento.setId_fornecedor(this.resposta.getId_fornecedor());
+				respostaOrcamento.setNomeFornecedor(fornecedorBO.buscarFornecedorPorId(this.resposta.getId_fornecedor()).getNome());
+				respostaOrcamento.setData_resposta(new Date());
 
 				validaSePodeEnviar();
 				if (envioDoOrcamentoLiberado) {

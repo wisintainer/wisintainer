@@ -12,6 +12,7 @@
 			<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
 				pattern="dd/MM/yyyy" />
 		</p:outputLabel>)
+		(Status: #{detalheOrcamentoMB.orcamento.getStatusAsString()})
     </ui:define>
 
 	<ui:define name="body">
@@ -38,7 +39,10 @@
 				</div>
 			</div>
 			<div class="box box-primary">
+			
 				<div class="ui-g-6 ui-sm-1">
+				<h3> Respostas </h3>
+
 					<p:dataTable id="fornecedoresResponderamTable"
 						value="#{detalheOrcamentoMB.fornecedoresQueResponderam}"
 						emptyMessage="Nenhum Fornecedor respondeu a este Orçamento."

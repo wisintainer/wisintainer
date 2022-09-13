@@ -17,7 +17,8 @@
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-2 ui-sm-1">
 							<div class="ui-material">
-								<p:inputMask mask="aaa-9*99" id="placa" placeholder="Placa do Veículo"
+								<p:inputMask mask="aaa-9*99" id="placa"
+									placeholder="Placa do Veículo"
 									value="#{gerenciarOrcamentoMB.orcamentoBusca.veiculoPlaca}" />
 								<p:outputLabel for="placa" value="Placa" />
 								<p:message for="placa" />
@@ -45,30 +46,34 @@
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
-						<p:column headerText="Orçamento Número">
+						<p:column style="text-align: center;" headerText="Orçamento Número">
 							<p:outputLabel value="#{orcamento.id}" />
 						</p:column>
 
-						<p:column headerText="Data da Criação">
+						<p:column style="text-align: center;" headerText="Status">
+							<p:outputLabel value="#{orcamento.getStatusAsString()}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Data da Criação">
 							<p:outputLabel value="#{orcamento.dataCriacao}">
 								<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
 									pattern="dd/MM/yyyy" />
 							</p:outputLabel>
 						</p:column>
 
-						<p:column headerText="Fabricante">
+						<p:column style="text-align: center;" headerText="Fabricante">
 							<p:outputLabel value="#{orcamento.veiculoFabricante} " />
 						</p:column>
 
-						<p:column headerText="Modelo">
+						<p:column style="text-align: center;" headerText="Modelo">
 							<p:outputLabel value="#{orcamento.veiculoModelo} " />
 						</p:column>
 
-						<p:column headerText="Placa">
+						<p:column style="text-align: center;" headerText="Placa">
 							<p:outputLabel value="#{orcamento.veiculoPlaca} " />
 						</p:column>
 
-						<p:column headerText="Ação">
+						<p:column style="text-align: center;" headerText="Ação">
 							<p:commandButton
 								onclick="window.open('#{request.contextPath}/pages/orcamentos/detalhe-orcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
 								styleClass="btn-primary" icon="fa fa-search" />

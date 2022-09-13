@@ -55,10 +55,11 @@ public class Orcamento implements Serializable {
 	@Column(name = "veiculoChassi")
 	private String veiculoChassi;
 
+	@Column(name = "status")
+	private Integer status;
+
 	@Transient
 	private List<ItemOrcamento> itensOrcamento;
-
-
 
 	public Integer getId() {
 		return id;
@@ -132,9 +133,31 @@ public class Orcamento implements Serializable {
 		this.itensOrcamento = itensOrcamento;
 	}
 
-	
-	
-	
-	
+	public Integer getStatus() {
+		return status;
+	}
 
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	// 0 - Aberto
+	// 1 - Aprovado
+	// 2 - Cancelado
+	public String getStatusAsString() {
+		String status = "Indefinido";
+		if (getStatus() == 0) {
+			status = "Aberto";
+		}
+
+		if (getStatus() == 1) {
+			status = "Aprovado";
+		}
+
+		if (getStatus() == 2) {
+			status = "Cancelado";
+		}
+
+		return status;
+	}
 }

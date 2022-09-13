@@ -10,9 +10,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.wisintainer.bo.OrcamentoBO;
 import br.com.wisintainer.bo.ResposataFornecedorBO;
 import br.com.wisintainer.controller.AbstractMB;
 import br.com.wisintainer.model.Application;
+import br.com.wisintainer.model.Orcamento;
 import br.com.wisintainer.model.RespostaFornecedor;
 import br.com.wisintainer.model.RespostaOrcamento;
 
@@ -31,7 +33,9 @@ public class ExaminarRespostaOrcamentoMB extends AbstractMB {
 	@PostConstruct
 	public void inicializar() throws NumberFormatException, Exception {
 		this.respostas = new ArrayList<RespostaOrcamento>();
+		this.respostasSelecionadas = new ArrayList<RespostaOrcamento>();
 		carregarRespsotas();
+		preencherOrcamento(this.respostas.get(0).getId_orcamento());
 	}
 
 	public void carregarRespsotas() throws NumberFormatException, Exception {
@@ -44,7 +48,26 @@ public class ExaminarRespostaOrcamentoMB extends AbstractMB {
 	@Inject
 	private ResposataFornecedorBO respostaFornecedorBo;
 
+	@Inject
+	private OrcamentoBO orcamentoBO;
+
 	private List<RespostaOrcamento> respostas;
+
+	private Orcamento orcamento;
+
+	private List<RespostaOrcamento> respostasSelecionadas;
+
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+
+	public void preencherOrcamento(Integer idOrcamento) throws Exception {
+		this.orcamento = orcamentoBO.buscarOrcamentoPorId(idOrcamento);
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
+	}
 
 	public List<RespostaOrcamento> getRespostas() {
 		return respostas;
@@ -52,6 +75,14 @@ public class ExaminarRespostaOrcamentoMB extends AbstractMB {
 
 	public void setRespostas(List<RespostaOrcamento> respostas) {
 		this.respostas = respostas;
+	}
+
+	public List<RespostaOrcamento> getRespostasSelecionadas() {
+		return respostasSelecionadas;
+	}
+
+	public void setRespostasSelecionadas(List<RespostaOrcamento> respostasSelecionadas) {
+		this.respostasSelecionadas = respostasSelecionadas;
 	}
 
 	public void abrirOrcamentoDeUmFornecedor(Integer formecedorId, Integer orcamentoId) throws Exception {

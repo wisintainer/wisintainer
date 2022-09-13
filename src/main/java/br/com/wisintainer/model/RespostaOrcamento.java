@@ -1,16 +1,20 @@
 package br.com.wisintainer.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
+
+import com.google.protobuf.DoubleValueOrBuilder;
 
 import br.com.wisintainer.helper.TipoBanco;
 import br.com.wisintainer.helper.TipoBanco.TiposBanco;
@@ -24,6 +28,11 @@ public class RespostaOrcamento implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@PostConstruct
+	public void inicializar() {
+		this.nomeFornecedor = new String();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,9 +63,19 @@ public class RespostaOrcamento implements Serializable {
 	@Column(name = "id_fornecedor")
 	private Integer id_fornecedor;
 
-
-	@Formula(value= "(SELECT f.nome FROM fornecedor f WHERE f.id = id_fornecedor LIMIT 1)")
+	@Column(name = "nome_fornecedor")
 	private String nomeFornecedor;
+
+	@Column(name = "data_resposta")
+	private Date data_resposta;
+
+	public String temEmEstoqueAsString() {
+		if (tememestoque) {
+			return "Sim";
+		} else {
+			return "Não";
+		}
+	}
 
 	public Integer getId() {
 		return id;
@@ -130,13 +149,30 @@ public class RespostaOrcamento implements Serializable {
 		this.id_fornecedor = id_fornecedor;
 	}
 
-
 	public String getNomeFornecedor() {
 		return nomeFornecedor;
 	}
 
 	public void setNomeFornecedor(String nomeFornecedor) {
 		this.nomeFornecedor = nomeFornecedor;
+	}
+
+	public Date getData_resposta() {
+		return data_resposta;
+	}
+
+	public void setData_resposta(Date data_resposta) {
+		this.data_resposta = data_resposta;
+	}
+
+	public String getValorAsString() {
+		DecimalFormat decimal = new DecimalFormat("###,###,###,##0.00");
+		return decimal.format(getValor());
+	}
+
+	public String valorTotalPorItem() {
+		DecimalFormat decimal = new DecimalFormat("###,###,###,##0.00");
+		return decimal.format(quantidade * valor);
 	}
 
 }
