@@ -46,7 +46,8 @@
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
-						<p:column style="text-align: center;" headerText="Orçamento Número">
+						<p:column style="text-align: center;"
+							headerText="Orçamento Número">
 							<p:outputLabel value="#{orcamento.id}" />
 						</p:column>
 
@@ -74,8 +75,12 @@
 						</p:column>
 
 						<p:column style="text-align: center;" headerText="Ação">
-							<p:commandButton
+							<p:commandButton title="Ver Propostas"
 								onclick="window.open('#{request.contextPath}/pages/orcamentos/detalhe-orcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
+								styleClass="btn-primary" icon="fa fa-gavel" />
+
+							<p:commandButton title="Abrir Orçamento"
+								onclick="window.open('#{request.contextPath}/pages/orcamentos/visualizacaoorcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
 								styleClass="btn-primary" icon="fa fa-search" />
 						</p:column>
 					</p:dataTable>

@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+
+	</ui:define>
+
+	<ui:define name="body">
+		<div class="callout-card callout-warning" style="margin-top: 30px">
+			<p>
+				Data do Orçamento:
+				<p:outputLabel
+					value="#{visualizacaoOrcamentoMB.orcamento.dataCriacao}">
+					<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
+						pattern="dd/MM/yyyy" />
+				</p:outputLabel>
+			</p>
+			<p>Placa: #{visualizacaoOrcamentoMB.orcamento.veiculoPlaca}</p>
+			<p>Chassi: #{visualizacaoOrcamentoMB.orcamento.veiculoChassi}</p>
+			<p>Fabricante:
+				#{visualizacaoOrcamentoMB.orcamento.veiculoFabricante}</p>
+			<p>Modelo: #{visualizacaoOrcamentoMB.orcamento.veiculoModelo}</p>
+			<p>
+				<b> Valor do Orçamento: R$: 
+					#{visualizacaoOrcamentoMB.valorTotalAprovadoOrcamento()} </b>
+			</p>
+		</div>
+		<h:form prependId="false">
+			<div class="ui-g">
+				<div class="ui-g-6">
+					<p:commandButton icon="fa fa-shopping-cart" disabled="#{empty visualizacaoOrcamentoMB.aprovaoesDoOrcamento}"
+						styleClass="btn btn-success" value="Gerar Ordem de Compra" />
+				</div>
+
+			</div>
+
+
+			<div class="box box-primary">
+				<div class="ui-g-12 ui-sm-6">
+					<p:dataTable id="fornecedoresResponderamTable"
+						value="#{visualizacaoOrcamentoMB.aprovaoesDoOrcamento}"
+						emptyMessage="Nenhum item aprovadao para este Orçamento"
+						widgetVar="fornecedoresResponderamTable" rows="30" var="aprovacao"
+						paginator="true" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+						<p:column style="text-align: center;" headerText="Código">
+							<p:outputLabel value="#{aprovacao.item_id}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Produto/Serviço">
+							<p:outputLabel value="#{aprovacao.item_nome}" />
+						</p:column>
+
+						<p:column style="text-align: center;"
+							headerText="Fornecedor Aprovado">
+							<p:outputLabel value="#{aprovacao.fornecedor_nome}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Quantidade">
+							<p:outputLabel value="#{aprovacao.item_quantidade}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Valor Unitário">
+							<p:outputLabel value="R$: #{aprovacao.valorAsString()}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Tem em Estoque?">
+							<p:outputLabel value="#{aprovacao.temEmEstoqueAsString()}" />
+						</p:column>
+
+						<p:column style="text-align: center;" headerText="Ação">
+							<p:commandButton title="Remover do Orçamento" update="fornecedoresResponderamTable"
+								action="#{visualizacaoOrcamentoMB.removerAprovacaoDoOrcamento}"
+								styleClass="btn btn-danger" icon="fa fa-close">
+								<f:setPropertyActionListener value="#{aprovacao}"
+									target="#{visualizacaoOrcamentoMB.aprovacaoParaRemover}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</h:form>
+		<p:spacer />
+	</ui:define>
+
+</ui:composition>

@@ -210,6 +210,7 @@ public class OrcamentoMB extends AbstractMB {
 	public void salvarSolicitacaoDeOrcamento() throws Exception {
 		try {
 			orcamento.setItensOrcamento(itensOrcamento);
+			orcamento.setStatus(0);
 			orcamentoBO.salvarSolicitacaoDeOrcamento(orcamento, this.fornecedoresSelecionados);
 			FacesMessage msg = new FacesMessage("Informação: ");
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);

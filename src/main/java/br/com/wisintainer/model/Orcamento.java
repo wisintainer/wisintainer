@@ -58,6 +58,39 @@ public class Orcamento implements Serializable {
 	@Column(name = "status")
 	private Integer status;
 
+	@Column(name = "entrega_empresa")
+	private String entrega_empresa;
+
+	@Column(name = "entrega_responsavel")
+	private String entrega_responsavel;
+
+	@Column(name = "entrega_endereco")
+	private String entrega_endereco;
+
+	@Column(name = "entrega_numero")
+	private String entrega_numero;
+
+	@Column(name = "entrega_bairro")
+	private String entrega_bairro;
+
+	@Column(name = "entrega_cidade")
+	private String entrega_cidade;
+
+	@Column(name = "entrega_estado")
+	private String entrega_estado;
+
+	@Column(name = "entrega_cep")
+	private String entrega_cep;
+
+	@Column(name = "entrega_telefone")
+	private String entrega_telefone;
+
+	@Column(name = "entrega_email")
+	private String entrega_email;
+
+	@Column(name = "entrega_requisitante")
+	private String entrega_requisitante;
+
 	@Transient
 	private List<ItemOrcamento> itensOrcamento;
 
@@ -139,6 +172,94 @@ public class Orcamento implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getEntrega_empresa() {
+		return entrega_empresa;
+	}
+
+	public void setEntrega_empresa(String entrega_empresa) {
+		this.entrega_empresa = entrega_empresa;
+	}
+
+	public String getEntrega_responsavel() {
+		return entrega_responsavel;
+	}
+
+	public void setEntrega_responsavel(String entrega_responsavel) {
+		this.entrega_responsavel = entrega_responsavel;
+	}
+
+	public String getEntrega_endereco() {
+		return entrega_endereco;
+	}
+
+	public void setEntrega_endereco(String entrega_endereco) {
+		this.entrega_endereco = entrega_endereco;
+	}
+
+	public String getEntrega_numero() {
+		return entrega_numero;
+	}
+
+	public void setEntrega_numero(String entrega_numero) {
+		this.entrega_numero = entrega_numero;
+	}
+
+	public String getEntrega_bairro() {
+		return entrega_bairro;
+	}
+
+	public void setEntrega_bairro(String entrega_bairro) {
+		this.entrega_bairro = entrega_bairro;
+	}
+
+	public String getEntrega_cidade() {
+		return entrega_cidade;
+	}
+
+	public void setEntrega_cidade(String entrega_cidade) {
+		this.entrega_cidade = entrega_cidade;
+	}
+
+	public String getEntrega_estado() {
+		return entrega_estado;
+	}
+
+	public void setEntrega_estado(String entrega_estado) {
+		this.entrega_estado = entrega_estado;
+	}
+
+	public String getEntrega_cep() {
+		return entrega_cep;
+	}
+
+	public void setEntrega_cep(String entrega_cep) {
+		this.entrega_cep = entrega_cep;
+	}
+
+	public String getEntrega_telefone() {
+		return entrega_telefone;
+	}
+
+	public void setEntrega_telefone(String entrega_telefone) {
+		this.entrega_telefone = entrega_telefone;
+	}
+
+	public String getEntrega_email() {
+		return entrega_email;
+	}
+
+	public void setEntrega_email(String entrega_email) {
+		this.entrega_email = entrega_email;
+	}
+
+	public String getEntrega_requisitante() {
+		return entrega_requisitante;
+	}
+
+	public void setEntrega_requisitante(String entrega_requisitante) {
+		this.entrega_requisitante = entrega_requisitante;
 	}
 
 	// 0 - Aberto

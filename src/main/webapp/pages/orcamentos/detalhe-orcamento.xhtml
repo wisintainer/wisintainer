@@ -18,30 +18,21 @@
 	<ui:define name="body">
 
 		<h:form prependId="false">
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<div class="ui-g-12 ui-sm-1">
-						<p:outputLabel styleClass="badge bg-danger"
-							value="Fabricante: &#160; #{detalheOrcamentoMB.orcamento.veiculoFabricante}" />
-					</div>
-					<div class="ui-g-12 ui-sm-1">
-						<p:outputLabel styleClass="badge bg-danger"
-							value="Modelo: &#160; #{detalheOrcamentoMB.orcamento.veiculoModelo}" />
-					</div>
-					<div class="ui-g-12 ui-sm-1">
-						<p:outputLabel styleClass="badge bg-danger"
-							value="Placa: &#160; #{detalheOrcamentoMB.orcamento.veiculoPlaca}" />
-					</div>
-					<div class="ui-g-12 ui-sm-1">
-						<p:outputLabel styleClass="badge bg-danger"
-							value="Chassi: &#160; #{detalheOrcamentoMB.orcamento.veiculoChassi}" />
-					</div>
-				</div>
+
+
+			<div class="callout-card callout-warning" style="margin-top: 30px">
+				<p>Fabricante: #{detalheOrcamentoMB.orcamento.veiculoFabricante}
+				</p>
+				<p>Modelo: #{detalheOrcamentoMB.orcamento.veiculoModelo}</p>
+				<p>Placa: #{detalheOrcamentoMB.orcamento.veiculoPlaca}</p>
+				<p>Chassi: #{detalheOrcamentoMB.orcamento.veiculoChassi}</p>
+
 			</div>
+
 			<div class="box box-primary">
-			
+
 				<div class="ui-g-6 ui-sm-1">
-				<h3> Respostas </h3>
+					<h3>Respostas</h3>
 
 					<p:dataTable id="fornecedoresResponderamTable"
 						value="#{detalheOrcamentoMB.fornecedoresQueResponderam}"

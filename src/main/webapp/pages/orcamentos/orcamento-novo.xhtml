@@ -193,12 +193,171 @@
 							</div>
 						</h:form>
 					</p:tab>
-					<p:tab id="finalizar" title="4 - Finalizar">
+
+					<p:tab id="entrega" title="4 - Entrega">
+
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<div class="ui-g ui-fluid">
+									<div class="ui-g-3 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="empresa" 
+												value="#{orcamentoMB.orcamento.entrega_empresa}"
+												placeholder="Empresa" />
+											<p:outputLabel for="empresa" value="Empresa" />
+											<p:message for="empresa" />
+										</div>
+									</div>
+
+									<div class="ui-g-3 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="responsavel" 
+												value="#{orcamentoMB.orcamento.entrega_responsavel}"
+												placeholder="Responsável" />
+											<p:outputLabel for="responsavel" value="Responsável" />
+											<p:message for="responsavel" />
+										</div>
+									</div>
+
+									<div class="ui-g-2 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="telefone" 
+												value="#{orcamentoMB.orcamento.entrega_telefone}"
+												placeholder="Telefone" />
+											<p:outputLabel for="telefone" value="Telefone" />
+											<p:message for="telefone" />
+										</div>
+									</div>
+
+									<div class="ui-g-3 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="email" 
+												value="#{orcamentoMB.orcamento.entrega_email}"
+												placeholder="E-mail" />
+											<p:outputLabel for="email" value="E-mail" />
+											<p:message for="email" />
+										</div>
+									</div>
+								</div>
+								<div class="ui-g ui-fluid">
+									<div class="ui-g-3 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="endereco" 
+												value="#{orcamentoMB.orcamento.entrega_endereco}"
+												placeholder="Endereço" />
+											<p:outputLabel for="endereco" value="Endereço" />
+											<p:message for="endereco" />
+										</div>
+									</div>
+
+									<div class="ui-g-1 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="numero" 
+												value="#{orcamentoMB.orcamento.entrega_numero}"
+												placeholder="Número" />
+											<p:outputLabel for="numero" value="Número" />
+											<p:message for="numero" />
+										</div>
+									</div>
+
+									<div class="ui-g-2 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="bairro" 
+												value="#{orcamentoMB.orcamento.entrega_bairro}"
+												placeholder="Bairro" />
+											<p:outputLabel for="bairro" value="Bairro" />
+											<p:message for="bairro" />
+										</div>
+									</div>
+
+									<div class="ui-g-2 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="cidade" 
+												value="#{orcamentoMB.orcamento.entrega_cidade}"
+												placeholder="Cidade" />
+											<p:outputLabel for="cidade" value="Cidade" />
+											<p:message for="cidade" />
+										</div>
+									</div>
+
+									<div class="ui-g-1 ui-sm-1">
+										<div class="ui-material">
+											<p:selectOneMenu
+												value="#{orcamentoMB.orcamento.entrega_estado}">
+												<f:selectItem itemLabel="SC" itemValue="SC" />
+
+												<f:selectItem itemLabel="AC" itemValue="AC" />
+												<f:selectItem itemLabel="AL" itemValue="AL" />
+												<f:selectItem itemLabel="AP" itemValue="AP" />
+												<f:selectItem itemLabel="AM" itemValue="AM" />
+												<f:selectItem itemLabel="BA" itemValue="BA" />
+												<f:selectItem itemLabel="CE" itemValue="CE" />
+												<f:selectItem itemLabel="DF" itemValue="DF" />
+												<f:selectItem itemLabel="ES" itemValue="ES" />
+												<f:selectItem itemLabel="GO" itemValue="GO" />
+												<f:selectItem itemLabel="MA" itemValue="MA" />
+												<f:selectItem itemLabel="MT" itemValue="MT" />
+												<f:selectItem itemLabel="MS" itemValue="MS" />
+												<f:selectItem itemLabel="MG" itemValue="MG" />
+												<f:selectItem itemLabel="PA" itemValue="PA" />
+												<f:selectItem itemLabel="PB" itemValue="PB" />
+												<f:selectItem itemLabel="PR" itemValue="PR" />
+												<f:selectItem itemLabel="PE" itemValue="PE" />
+												<f:selectItem itemLabel="PI" itemValue="PI" />
+												<f:selectItem itemLabel="RJ" itemValue="RJ" />
+												<f:selectItem itemLabel="RN" itemValue="RN" />
+												<f:selectItem itemLabel="RS" itemValue="RS" />
+												<f:selectItem itemLabel="RO" itemValue="RO" />
+												<f:selectItem itemLabel="RR" itemValue="RR" />
+												<f:selectItem itemLabel="SP" itemValue="SP" />
+												<f:selectItem itemLabel="SE" itemValue="SE" />
+												<f:selectItem itemLabel="TO" itemValue="TO" />
+											</p:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="ui-g-2 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="cep" 
+												value="#{orcamentoMB.orcamento.entrega_cep}"
+												placeholder="CEP" />
+											<p:outputLabel for="cep" value="CEP" />
+											<p:message for="cep" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</p:tab>
+
+					<p:tab id="requisitante" title="5 - Requisitante">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<div class="ui-g ui-fluid">
+									<div class="ui-g-3 ui-sm-1">
+										<div class="ui-material">
+											<p:inputText id="req" required="true"
+												value="#{orcamentoMB.orcamento.entrega_requisitante}"
+												placeholder="Nome do Requisitante" />
+											<p:outputLabel for="req" value="Requisitante" />
+											<p:message for="req" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</p:tab>
+
+					<p:tab id="finalizar" title="6 - Finalizar">
 						<div class="box box-primary">
 							<div class="box-header with-border">
 								<div class="ui-g ui-fluid">
 									<div class="ui-g-2">
-										<p:commandButton process="@form" action="#{orcamentoMB.salvarSolicitacaoDeOrcamento}" icon="fa fa-paper-plane-o" styleClass="btn btn-success" value="Solicitar Orçamentos" />
+										<p:commandButton process="@form"
+											action="#{orcamentoMB.salvarSolicitacaoDeOrcamento}"
+											icon="fa fa-paper-plane-o" styleClass="btn btn-success"
+											value="Solicitar Orçamentos" />
 									</div>
 
 								</div>
@@ -292,11 +451,6 @@
 									</p:dataTable>
 								</div>
 							</div>
-
-
-
-
-
 						</div>
 					</div>
 					<div class="ui-g-12" style="align-content: center;">

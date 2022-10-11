@@ -28,16 +28,16 @@
 				#{examinarRespostaOrcamentoMB.orcamento.veiculoFabricante}</p>
 			<p>Modelo: #{examinarRespostaOrcamentoMB.orcamento.veiculoModelo}</p>
 		</div>
-
+<h:form prependId="false">
 		<div class="ui-g">
 			<div class="ui-g-6">
 				<p:commandButton icon="fa fa-circle" styleClass="btn btn-success" value="Aprovar Total" />
-				<p:commandButton icon="fa fa-adjust" styleClass="btn btn-success" value="Aprovar Selecionados" />
+				<p:commandButton process="@form" action="#{examinarRespostaOrcamentoMB.aprovarSelecionados}" icon="fa fa-adjust" styleClass="btn btn-success" value="Aprovar Selecionados" />
 			</div>
 
 		</div>
 
-		<h:form prependId="false">
+		
 			<div class="box box-primary">
 				<div class="ui-g-12 ui-sm-6">
 					<p:dataTable id="fornecedoresResponderamTable"
