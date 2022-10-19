@@ -1,0 +1,411 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Oficinas
+    </ui:define>
+
+	<ui:define name="body">
+		<h:form id="frm" prependId="false">
+			<div class="box box-success">
+				<div class="box-header with-border">
+
+					<p:commandButton icon="fa fa-plus" value="Nova Oficina"
+						oncomplete="PF('wVnovoFornecedor').show()"
+						styleClass="btn-success" />
+
+					<p:spacer width="5" />
+
+					<p:commandButton value="Editar Selecionada" icon="fa fa-pencil"
+						oncomplete="PF('wVeditarFornecedor').show()"
+						update="dialogEditarFornecedor" styleClass="btn-warning" />
+
+					<p:spacer width="5" />
+					<p:separator />
+
+					<div class="box box-success">
+						<div class="box-header with-border">
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-4 ui-sm-2">
+									<div class="ui-material">
+										<p:inputText id="nome_busca" placeholder="Nome da Oficina"
+											value="#{gerenciarOficinaMB.nomeParaBuscar}" />
+										<p:outputLabel for="nome_busca" value="Nome da Oficina" />
+										<p:message for="nome_busca" />
+									</div>
+								</div>
+
+								<div class="ui-g-1 ui-sm-1">
+									<div class="ui-material">
+										<p:commandButton id="btn_buscar" update="fornecedoresTable"
+											value="Buscar"
+											action="#{gerenciarOficinaMB.buscarOficinasPorNome}"
+											styleClass="btn-success" process="@form" />
+
+										<p:defaultCommand target="btn_buscar" />
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p:dataTable selectionMode="single"
+						selection="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar}"
+						id="fornecedoresTable" widgetVar="fornecedorTable" rows="10"
+						value="#{gerenciarOficinaMB.oficinas}" var="oficina"
+						paginator="true" paginatorPosition="bottom"
+						rowKey="#{oficina.id}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+						<p:column headerText="id">
+							<p:outputLabel value="#{oficina.id}" />
+						</p:column>
+
+						<p:column headerText="CNPJ">
+							<p:outputLabel value="#{oficina.nome}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<p:outputLabel value="#{oficina.cidade}" />
+						</p:column>
+
+						<p:column headerText="E-mail">
+							<p:outputLabel value="#{oficina.estado}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+
+
+
+		</h:form>
+
+		<p:dialog header="Nova Oficina" widgetVar="wVnovoFornecedor"
+			id="dialogNovoFornecedor" width="800px" height="400px"
+			resizable="false" closable="false" modal="true" responsive="true"
+			styleClass="box-success">
+			<h:form prependId="false">
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="nome" placeholder="Nome da Oficina"
+									value="#{gerenciarOficinaMB.novaOficina.nome}" />
+								<p:outputLabel for="nome" value="Nome da Oficina" />
+								<p:message for="nome" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="resp" placeholder="Responsável"
+									value="#{gerenciarOficinaMB.novaOficina.responsavel}" />
+								<p:outputLabel for="resp" value="Responsável" />
+								<p:message for="resp" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-4 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="email" placeholder="E-mail"
+									value="#{gerenciarOficinaMB.novaOficina.email}" />
+								<p:outputLabel for="email" value="E-mail" />
+								<p:message for="email" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="telefone" placeholder="Telefone"
+									value="#{gerenciarOficinaMB.novaOficina.telefone}" />
+								<p:outputLabel for="telefone" value="Telefone" />
+								<p:message for="telefone" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="endereco" placeholder="Endereço"
+									value="#{gerenciarOficinaMB.novaOficina.endereco}" />
+								<p:outputLabel for="endereco" value="Endereço" />
+								<p:message for="endereco" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="numero" placeholder="Número"
+									value="#{gerenciarOficinaMB.novaOficina.numero}" />
+								<p:outputLabel for="numero" value="Número" />
+								<p:message for="numero" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="bairro" placeholder="Bairro"
+									value="#{gerenciarOficinaMB.novaOficina.bairro}" />
+								<p:outputLabel for="bairro" value="Bairro" />
+								<p:message for="bairro" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="cidade" placeholder="Cidade"
+									value="#{gerenciarOficinaMB.novaOficina.cidade}" />
+								<p:outputLabel for="cidade" value="Cidade" />
+								<p:message for="cidade" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:selectOneMenu value="#{gerenciarOficinaMB.novaOficina.estado}">
+									<f:selectItem itemLabel="SC" itemValue="SC" />
+
+									<f:selectItem itemLabel="AC" itemValue="AC" />
+									<f:selectItem itemLabel="AL" itemValue="AL" />
+									<f:selectItem itemLabel="AP" itemValue="AP" />
+									<f:selectItem itemLabel="AM" itemValue="AM" />
+									<f:selectItem itemLabel="BA" itemValue="BA" />
+									<f:selectItem itemLabel="CE" itemValue="CE" />
+									<f:selectItem itemLabel="DF" itemValue="DF" />
+									<f:selectItem itemLabel="ES" itemValue="ES" />
+									<f:selectItem itemLabel="GO" itemValue="GO" />
+									<f:selectItem itemLabel="MA" itemValue="MA" />
+									<f:selectItem itemLabel="MT" itemValue="MT" />
+									<f:selectItem itemLabel="MS" itemValue="MS" />
+									<f:selectItem itemLabel="MG" itemValue="MG" />
+									<f:selectItem itemLabel="PA" itemValue="PA" />
+									<f:selectItem itemLabel="PB" itemValue="PB" />
+									<f:selectItem itemLabel="PR" itemValue="PR" />
+									<f:selectItem itemLabel="PE" itemValue="PE" />
+									<f:selectItem itemLabel="PI" itemValue="PI" />
+									<f:selectItem itemLabel="RJ" itemValue="RJ" />
+									<f:selectItem itemLabel="RN" itemValue="RN" />
+									<f:selectItem itemLabel="RS" itemValue="RS" />
+									<f:selectItem itemLabel="RO" itemValue="RO" />
+									<f:selectItem itemLabel="RR" itemValue="RR" />
+									<f:selectItem itemLabel="SP" itemValue="SP" />
+									<f:selectItem itemLabel="SE" itemValue="SE" />
+									<f:selectItem itemLabel="TO" itemValue="TO" />
+								</p:selectOneMenu>
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="cep" placeholder="CEP"
+									value="#{gerenciarOficinaMB.novaOficina.cep}" />
+								<p:outputLabel for="cep" value="CEP" />
+								<p:message for="cep" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Cadastrar" process="@form"
+								update="fornecedoresTable" oncomplete="PF('wVnovoFornecedor').hide()"
+								action="#{gerenciarOficinaMB.salvarOficina}"
+								styleClass="btn btn-success" />
+						</div>
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton oncomplete="PF('wVnovoFornecedor').hide()"
+								update="dialogNovoFornecedor"
+								action="#{gerenciarOficinaMB.limparNovaOficina()}"
+								value="Cancelar" styleClass="btn btn-danger" />
+						</div>
+					</div>
+
+				</div>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+		<p:dialog header="Editar Oficina" widgetVar="wVeditarFornecedor"
+			id="dialogEditarFornecedor" width="800px" height="400px"
+			resizable="false" closable="false" modal="true" responsive="true"
+			styleClass="box-success">
+			<h:form prependId="false">
+				<div class="box-header with-border">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="_nome" placeholder="Nome da Oficina"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.nome}" />
+								<p:outputLabel for="_nome" value="Nome da Oficina" />
+								<p:message for="_nome" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-3">
+							<div class="ui-material">
+								<p:inputText id="_resp" placeholder="Responsável"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.responsavel}" />
+								<p:outputLabel for="_resp" value="Responsável" />
+								<p:message for="_resp" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-4 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_email" placeholder="E-mail"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.email}" />
+								<p:outputLabel for="_email" value="E-mail" />
+								<p:message for="_email" />
+							</div>
+						</div>
+
+						<div class="ui-g-2 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_telefone" placeholder="Telefone"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.telefone}" />
+								<p:outputLabel for="_telefone" value="Telefone" />
+								<p:message for="_telefone" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_endereco" placeholder="Endereço"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.endereco}" />
+								<p:outputLabel for="_endereco" value="Endereço" />
+								<p:message for="_endereco" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_numero" placeholder="Número"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.numero}" />
+								<p:outputLabel for="_numero" value="Número" />
+								<p:message for="_numero" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_bairro" placeholder="Bairro"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.bairro}" />
+								<p:outputLabel for="_bairro" value="Bairro" />
+								<p:message for="_bairro" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_cidade" placeholder="Cidade"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.cidade}" />
+								<p:outputLabel for="_cidade" value="Cidade" />
+								<p:message for="_cidade" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:selectOneMenu value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.estado}">
+									<f:selectItem itemLabel="SC" itemValue="SC" />
+
+									<f:selectItem itemLabel="AC" itemValue="AC" />
+									<f:selectItem itemLabel="AL" itemValue="AL" />
+									<f:selectItem itemLabel="AP" itemValue="AP" />
+									<f:selectItem itemLabel="AM" itemValue="AM" />
+									<f:selectItem itemLabel="BA" itemValue="BA" />
+									<f:selectItem itemLabel="CE" itemValue="CE" />
+									<f:selectItem itemLabel="DF" itemValue="DF" />
+									<f:selectItem itemLabel="ES" itemValue="ES" />
+									<f:selectItem itemLabel="GO" itemValue="GO" />
+									<f:selectItem itemLabel="MA" itemValue="MA" />
+									<f:selectItem itemLabel="MT" itemValue="MT" />
+									<f:selectItem itemLabel="MS" itemValue="MS" />
+									<f:selectItem itemLabel="MG" itemValue="MG" />
+									<f:selectItem itemLabel="PA" itemValue="PA" />
+									<f:selectItem itemLabel="PB" itemValue="PB" />
+									<f:selectItem itemLabel="PR" itemValue="PR" />
+									<f:selectItem itemLabel="PE" itemValue="PE" />
+									<f:selectItem itemLabel="PI" itemValue="PI" />
+									<f:selectItem itemLabel="RJ" itemValue="RJ" />
+									<f:selectItem itemLabel="RN" itemValue="RN" />
+									<f:selectItem itemLabel="RS" itemValue="RS" />
+									<f:selectItem itemLabel="RO" itemValue="RO" />
+									<f:selectItem itemLabel="RR" itemValue="RR" />
+									<f:selectItem itemLabel="SP" itemValue="SP" />
+									<f:selectItem itemLabel="SE" itemValue="SE" />
+									<f:selectItem itemLabel="TO" itemValue="TO" />
+								</p:selectOneMenu>
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_cep" placeholder="CEP"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.cep}" />
+								<p:outputLabel for="_cep" value="CEP" />
+								<p:message for="_cep" />
+							</div>
+						</div>
+					</div>
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Salvar" process="@form"
+								update="fornecedoresTable" oncomplete="PF('wVeditarFornecedor').hide()"
+								action="#{gerenciarOficinaMB.editarOficina}"
+								styleClass="btn btn-success" />
+						</div>
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton oncomplete="PF('wVeditarFornecedor').hide()"
+								update="dialogNovoFornecedor"
+								action="#{gerenciarOficinaMB.limparOficinaSelecionada}"
+								value="Cancelar" styleClass="btn btn-danger" />
+						</div>
+					</div>
+
+				</div>
+			</h:form>
+		</p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

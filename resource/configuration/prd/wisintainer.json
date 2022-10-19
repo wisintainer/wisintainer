@@ -8,14 +8,14 @@
 	"private": {
 		"administrador": {
 			"email": {
-				"no-reply": "wisintainer@gimmepepper.com.br",
-				"username": "wisintainer@gimmepepper.com.br",
-				"password": "wisintainer",
+				"no-reply": "orcamento@associacao1932.c41.integrator.host",
+				"username": "orcamento@associacao1932.c41.integrator.host",
+				"password": "Adasc@Adasc",
 				"no-reply-assunto": "Orçamento",
-				"mantenedor": "wisintainer@gimmepepper.com.br",
-				"admin": "wisintainer@gimmepepper.com.br",
+				"mantenedor": "orcamento@associacao1932.c41.integrator.host",
+				"admin": "orcamento@associacao1932.c41.integrator.host",
 				"smtp-port": "465",
-				"smtp-host": "mail.gimmepepper.com.br",
+				"smtp-host": "mail.associacao1932.c41.integrator.host",
 				"habilita-envio-email": true,
 				"auth": "true",
 				"ssl": "true",
@@ -25,8 +25,8 @@
 		},
 		"web-xml": {
 			"link-externo": {
-				"url-css": "https://www.sescpr.com.br/_files/css/erp/",
-				"url-js": "https://www.sescpr.com.br/_files/js/erp/"
+				"url-css": "https://",
+				"url-js": "https://"
 			}
 		},
 		"cookie": {
@@ -35,10 +35,10 @@
 			"nomeCookieCss": "menuclosed"
 		},
 		"autenticacao": {
-			"url": "https://permissao.sesc-sc.com.br/permissaows-teste",
-			"chave-sistema": "76d0fdc8-f6a9-48a8-8d93-fdfb70c0570b",
+			"url": "https://",
+			"chave-sistema": "111111",
 			"criptografia": {
-				"chave": "12Osk$12&#fS1S3$",
+				"chave": "1111",
 				"algoritmo": "AES",
 				"encode": "UTF-8",
 				"transformacao": "AES/ECB/PKCS5Padding"
@@ -47,10 +47,10 @@
 		},
 		"database": {
 			"mysql-cfg": {
-				"hibernate-default_schema": "adriano1409_wisintainer",
-				"hibernate-connection-url": "jdbc:mysql://localhost:3306/adriano1409_wisintainer?zeroDateTimeBehavior=CONVERT_TO_NULL",
-				"hibernate-connection-username": "adriano1409_wisintainer",
-				"hibernate-connection-password": "wisintainer",
+				"hibernate-default_schema": "associacao1932_adasc",
+				"hibernate-connection-url": "jdbc:mysql://localhost:3306/associacao1932_adasc?zeroDateTimeBehavior=CONVERT_TO_NULL",
+				"hibernate-connection-username": "associacao1932_associacao1932",
+				"hibernate-connection-password": "Adasc@Adasc",
 				"hibernate-connection-clientProgramName": "wisintainer",
 				"hibernate-c3p0-preferredTestQuery": "VALUES 'wisintainer'"
 			}
@@ -60,35 +60,6 @@
 			"algoritmo": "AES",
 			"encode": "UTF-8",
 			"transformacao": "AES/ECB/PKCS5Padding"
-		},
-		"notificacoesWs": {
-			"URL": "https://appt.sescpr.com.br/notificacoes2"
-		},
-		"receitaWS": {
-			"url": "https://app1.sescpr.com.br/receitaws",
-			"timeout": "30"
-		},
-		"wsClientela": {
-			"url": "https://wsclienteladev.sesc-sc.com.br/WSClientela",
-			"usuario": "central",
-			"senha": "enpXgG6m-moCAxpTC.np169ywG",
-			"timeout": "30"
-		},
-		"wsAtividades": {
-			"url": "https://wsatividadesdev.sesc-sc.com.br/WSAtividades",
-			"usuario": "central",
-			"senha": "enpXgG6m-moCAxpTC.np169ywG",
-			"timeout": "30"
-		},
-		"wsCobranca": {
-			"url": "https://wscobrancadev.sesc-sc.com.br/WSCobranca",
-			"usuario": "plataformamobile",
-			"senha": "2c826c10-01bb-4043-b25b-59182c565f79",
-			"timeout": "30"
-		},
-		"viaCep": {
-			"url": "https://viacep.com.br/ws",
-			"timeout": "10"
 		},
 		"version": {
 			"major": "11",

@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="#{layoutMB.template}">
+
+	<ui:define name="title">
+        Gerenciar Ordens de Compra
+    </ui:define>
+
+	<ui:define name="body">
+		<p:panel id="pnlBusca">
+			<h:form prependId="false">
+				<div class="box box-success">
+					<div class="box-header with-border">
+						<div class="ui-g ui-fluid">
+
+							<div class="ui-g-3 ui-sm-2">
+								<div class="ui-material">
+									<p:selectOneMenu onchange="executeOnChange();"
+										value="#{gerenciarOrdemDeCompraMB.opcaoDeBusca}">
+										<f:selectItem itemLabel="Buscar por Número da Ordem de Compra"
+											itemValue="0" />
+										<f:selectItem itemLabel="Buscar por Placa do Veículo"
+											itemValue="1" />
+									</p:selectOneMenu>
+
+									<p:remoteCommand name="executeOnChange" update="pnlBusca"
+										process="@form" />
+
+								</div>
+							</div>
+
+
+							<div class="ui-g-2 ui-sm-1">
+								<div class="ui-material">
+									<p:inputText id="noc" placeholder="Número da Ordem de Compra"
+										rendered="#{gerenciarOrdemDeCompraMB.opcaoDeBusca == 0}"
+										value="#{gerenciarOrdemDeCompraMB.numeroOrdemDeCompraParaBuscar}" />
+									<p:outputLabel
+										rendered="#{gerenciarOrdemDeCompraMB.opcaoDeBusca == 0}"
+										for="noc" value="Ordem de Compra" />
+
+
+									<p:inputMask mask="aaa-9*99" id="placa"
+										rendered="#{gerenciarOrdemDeCompraMB.opcaoDeBusca == 1}"
+										value="#{gerenciarOrdemDeCompraMB.placaParaBuscar}"
+										placeholder="Placa do Veículo" />
+									<p:outputLabel
+										rendered="#{gerenciarOrdemDeCompraMB.opcaoDeBusca == 1}"
+										for="placa" value="Placa" />
+
+								</div>
+							</div>
+
+							<div class="ui-g-1 ui-sm-1">
+								<div class="ui-material">
+									<p:commandButton
+										action="#{gerenciarOrdemDeCompraMB.buscarOrdemDeCompra}"
+										update="ordensTable" styleClass="btn-success" value="Buscar" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="box box-success">
+					<div class="box-header with-border">
+						<p:dataTable id="ordensTable" widgetVar="ordensTable" rows="10"
+							value="#{gerenciarOrdemDeCompraMB.ordensDeCompra}" var="ordem"
+							paginator="true" paginatorPosition="bottom"
+							rowKey="#{fornecedor.id}"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+							currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
+
+							<p:column style="text-align: center;"
+								headerText="Número da Ordem de Compra">
+								<p:outputLabel value="#{ordem.id}" />
+							</p:column>
+
+							<p:column style="text-align: center;" headerText="Data do Envio">
+								<p:outputLabel value="#{ordem.data_envio}">
+									<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
+										pattern="dd/MM/yyyy" />
+								</p:outputLabel>
+							</p:column>
+
+							<p:column style="text-align: center;" headerText="Visualizar">
+								<p:commandButton title="Abrir Ordem de Compra" ajax="false"
+									onclick="this.form.target='_blank'"
+									action="#{gerenciarOrdemDeCompraMB.abrirOrdemDeCompra}"
+									styleClass="btn-success" icon="fa fa-search">
+									<f:setPropertyActionListener value="#{ordem}"
+										target="#{gerenciarOrdemDeCompraMB.ordemSelecionada}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</div>
+			</h:form>
+			<p:spacer />
+		</p:panel>
+	</ui:define>
+
+</ui:composition>

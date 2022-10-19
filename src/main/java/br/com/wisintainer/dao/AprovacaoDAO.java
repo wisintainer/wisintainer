@@ -26,4 +26,21 @@ public class AprovacaoDAO extends GenericDAO {
 
 		return getArrayList(sb, Aprovacao.class);
 	}
+
+	public List<Integer> buscarTodosFornecedoresDaAprovacoesPorOrcamento(Integer idOrcamento) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" SELECT DISTINCT fornecedor_id FROM aprovacao WHERE orcamento_id = :idOrcamento ");
+		sb.setParameter("idOrcamento", idOrcamento);
+
+		return getArrayList(sb, Integer.class);
+	}
+
+	public List<Aprovacao> buscarAprovacoesPorOrcamentoEFornecedor(Integer idOrcamento, Integer idFornecedor) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" SELECT * FROM aprovacao WHERE orcamento_id = :idOrcamento AND fornecedor_id = :idFornecedor ");
+		sb.setParameter("idOrcamento", idOrcamento);
+		sb.setParameter("idFornecedor", idFornecedor);
+
+		return getArrayList(sb, Aprovacao.class);
+	}
 }

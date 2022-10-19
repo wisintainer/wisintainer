@@ -12,7 +12,7 @@
 
 	<ui:define name="body">
 		<h:form prependId="false">
-			<div class="box box-primary">
+			<div class="box box-success">
 				<div class="box-header with-border">
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-2 ui-sm-1">
@@ -29,7 +29,7 @@
 							<div class="ui-material">
 								<p:commandButton
 									action="#{gerenciarOrcamentoMB.buscarOrcamentoPorPlacaVeiculo}"
-									update="orcamentosTable" styleClass="btn-primary"
+									update="orcamentosTable" styleClass="btn-success"
 									value="Buscar" />
 							</div>
 						</div>
@@ -37,12 +37,12 @@
 				</div>
 			</div>
 
-			<div class="box box-primary">
+			<div class="box box-success">
 				<div class="box-header with-border">
 					<p:dataTable id="orcamentosTable" widgetVar="orcamentosTable"
 						rows="10" value="#{gerenciarOrcamentoMB.orcamentosEncontrados}"
 						var="orcamento" paginator="true" paginatorPosition="bottom"
-						rowKey="#{fornecedor.id}"
+						rowKey="#{fornecedor.id}" 
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
@@ -77,11 +77,11 @@
 						<p:column style="text-align: center;" headerText="Ação">
 							<p:commandButton title="Ver Propostas"
 								onclick="window.open('#{request.contextPath}/pages/orcamentos/detalhe-orcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
-								styleClass="btn-primary" icon="fa fa-gavel" />
+								styleClass="btn-success" icon="fa fa-gavel" />
 
 							<p:commandButton title="Abrir Orçamento"
 								onclick="window.open('#{request.contextPath}/pages/orcamentos/visualizacaoorcamento.xhtml?orcamento=#{orcamento.id}', '_blank');"
-								styleClass="btn-primary" icon="fa fa-search" />
+								styleClass="btn-success" icon="fa fa-search" />
 						</p:column>
 					</p:dataTable>
 				</div>

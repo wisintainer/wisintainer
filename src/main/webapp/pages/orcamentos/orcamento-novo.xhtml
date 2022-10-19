@@ -13,7 +13,7 @@
 	<ui:define name="body">
 
 		<h:form prependId="false">
-			<div class="box box-primary">
+			<div class="box box-success">
 				<p:wizard flowListener="#{orcamentoMB.onFlowProcess}" id="wizard"
 					widgetVar="wiz" nextLabel="Próximo" backLabel="Voltar">
 					<p:tab id="veiculo" title="1 - Informações do Veículo">
@@ -87,7 +87,7 @@
 					</p:tab>
 					<p:tab id="produtos" title="2 - Produtos/Serviços">
 						<h:form>
-							<div class="box box-primary">
+							<div class="box box-success">
 								<div class="box-header with-border">
 									<div class="ui-g ui-fluid">
 										<div class="ui-g-4 ui-sm-2">
@@ -113,7 +113,7 @@
 											<div class="ui-material">
 												<p:commandButton action="#{orcamentoMB.adicionarItem}"
 													update="panelItensOrcamento" process="@parent"
-													value="Adicionar" styleClass="btn-primary"
+													value="Adicionar" styleClass="btn-success"
 													icon="fa fa-plus" />
 											</div>
 										</div>
@@ -158,14 +158,14 @@
 					<p:tab id="fornecedores" title="3 - Fornecedores">
 
 						<h:form id="form-forn" prependId="false">
-							<div class="box box-primary">
+							<div class="box box-success">
 								<div class="box-header with-border">
 									<div class="ui-g ui-fluid">
 										<div class="ui-g-2 ui-sm-1">
 											<div class="ui-material">
 												<p:commandButton process="@form" value="Buscar Fornecedores"
 													oncomplete="{PF('buscaDeFornecedores').show();}"
-													styleClass="btn-primary" icon="fa fa-search" />
+													styleClass="btn-success" icon="fa fa-search" />
 											</div>
 										</div>
 									</div>
@@ -194,145 +194,50 @@
 						</h:form>
 					</p:tab>
 
-					<p:tab id="entrega" title="4 - Entrega">
-
-						<div class="box box-primary">
-							<div class="box-header with-border">
-								<div class="ui-g ui-fluid">
-									<div class="ui-g-3 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="empresa" 
-												value="#{orcamentoMB.orcamento.entrega_empresa}"
-												placeholder="Empresa" />
-											<p:outputLabel for="empresa" value="Empresa" />
-											<p:message for="empresa" />
+					<p:tab id="entrega" title="4 - Oficina">
+						<h:form id="form-oficina" prependId="false">
+							<div class="box box-success">
+								<div class="box-header with-border">
+									<div class="ui-g ui-fluid">
+										<div class="ui-g-2 ui-sm-1">
+											<div class="ui-material">
+												<p:commandButton process="@form" value="Buscar Oficinas"
+													oncomplete="{PF('buscaDeOficinas').show();}"
+													styleClass="btn-success" icon="fa fa-search" />
+											</div>
 										</div>
 									</div>
 
-									<div class="ui-g-3 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="responsavel" 
-												value="#{orcamentoMB.orcamento.entrega_responsavel}"
-												placeholder="Responsável" />
-											<p:outputLabel for="responsavel" value="Responsável" />
-											<p:message for="responsavel" />
-										</div>
-									</div>
+									<div class="ui-g ui-fluid">
+										<div class="ui-g-12 ui-sm-6">
+											<p:dataTable value="#{orcamentoMB.oficinasSelecionadas}"
+												id="table-oficina" rows="5" paginator="true"
+												paginatorPosition="bottom"
+												paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+												currentPageReportTemplate=""
+												rowsPerPageTemplate="5,10,15,20,30" selectionMode="single"
+												selection="#{orcamentoMB.oficinaSelecionadaParaAdicionar}"
+												var="oficinaBuscada" rowKey="#{oficinaBuscada.id}">
 
-									<div class="ui-g-2 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="telefone" 
-												value="#{orcamentoMB.orcamento.entrega_telefone}"
-												placeholder="Telefone" />
-											<p:outputLabel for="telefone" value="Telefone" />
-											<p:message for="telefone" />
-										</div>
-									</div>
-
-									<div class="ui-g-3 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="email" 
-												value="#{orcamentoMB.orcamento.entrega_email}"
-												placeholder="E-mail" />
-											<p:outputLabel for="email" value="E-mail" />
-											<p:message for="email" />
-										</div>
-									</div>
-								</div>
-								<div class="ui-g ui-fluid">
-									<div class="ui-g-3 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="endereco" 
-												value="#{orcamentoMB.orcamento.entrega_endereco}"
-												placeholder="Endereço" />
-											<p:outputLabel for="endereco" value="Endereço" />
-											<p:message for="endereco" />
-										</div>
-									</div>
-
-									<div class="ui-g-1 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="numero" 
-												value="#{orcamentoMB.orcamento.entrega_numero}"
-												placeholder="Número" />
-											<p:outputLabel for="numero" value="Número" />
-											<p:message for="numero" />
-										</div>
-									</div>
-
-									<div class="ui-g-2 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="bairro" 
-												value="#{orcamentoMB.orcamento.entrega_bairro}"
-												placeholder="Bairro" />
-											<p:outputLabel for="bairro" value="Bairro" />
-											<p:message for="bairro" />
-										</div>
-									</div>
-
-									<div class="ui-g-2 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="cidade" 
-												value="#{orcamentoMB.orcamento.entrega_cidade}"
-												placeholder="Cidade" />
-											<p:outputLabel for="cidade" value="Cidade" />
-											<p:message for="cidade" />
-										</div>
-									</div>
-
-									<div class="ui-g-1 ui-sm-1">
-										<div class="ui-material">
-											<p:selectOneMenu
-												value="#{orcamentoMB.orcamento.entrega_estado}">
-												<f:selectItem itemLabel="SC" itemValue="SC" />
-
-												<f:selectItem itemLabel="AC" itemValue="AC" />
-												<f:selectItem itemLabel="AL" itemValue="AL" />
-												<f:selectItem itemLabel="AP" itemValue="AP" />
-												<f:selectItem itemLabel="AM" itemValue="AM" />
-												<f:selectItem itemLabel="BA" itemValue="BA" />
-												<f:selectItem itemLabel="CE" itemValue="CE" />
-												<f:selectItem itemLabel="DF" itemValue="DF" />
-												<f:selectItem itemLabel="ES" itemValue="ES" />
-												<f:selectItem itemLabel="GO" itemValue="GO" />
-												<f:selectItem itemLabel="MA" itemValue="MA" />
-												<f:selectItem itemLabel="MT" itemValue="MT" />
-												<f:selectItem itemLabel="MS" itemValue="MS" />
-												<f:selectItem itemLabel="MG" itemValue="MG" />
-												<f:selectItem itemLabel="PA" itemValue="PA" />
-												<f:selectItem itemLabel="PB" itemValue="PB" />
-												<f:selectItem itemLabel="PR" itemValue="PR" />
-												<f:selectItem itemLabel="PE" itemValue="PE" />
-												<f:selectItem itemLabel="PI" itemValue="PI" />
-												<f:selectItem itemLabel="RJ" itemValue="RJ" />
-												<f:selectItem itemLabel="RN" itemValue="RN" />
-												<f:selectItem itemLabel="RS" itemValue="RS" />
-												<f:selectItem itemLabel="RO" itemValue="RO" />
-												<f:selectItem itemLabel="RR" itemValue="RR" />
-												<f:selectItem itemLabel="SP" itemValue="SP" />
-												<f:selectItem itemLabel="SE" itemValue="SE" />
-												<f:selectItem itemLabel="TO" itemValue="TO" />
-											</p:selectOneMenu>
-										</div>
-									</div>
-
-									<div class="ui-g-2 ui-sm-1">
-										<div class="ui-material">
-											<p:inputText id="cep" 
-												value="#{orcamentoMB.orcamento.entrega_cep}"
-												placeholder="CEP" />
-											<p:outputLabel for="cep" value="CEP" />
-											<p:message for="cep" />
+												<p:column headerText="Nome da Oficina">
+													<p:outputLabel value="#{oficinaBuscada.nome}" />
+												</p:column>
+												<p:column headerText="Cidade">
+													<p:outputLabel value="#{oficinaBuscada.cidade}" />
+												</p:column>
+											</p:dataTable>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</h:form>
+
+
 
 					</p:tab>
 
 					<p:tab id="requisitante" title="5 - Requisitante">
-						<div class="box box-primary">
+						<div class="box box-success">
 							<div class="box-header with-border">
 								<div class="ui-g ui-fluid">
 									<div class="ui-g-3 ui-sm-1">
@@ -350,7 +255,7 @@
 					</p:tab>
 
 					<p:tab id="finalizar" title="6 - Finalizar">
-						<div class="box box-primary">
+						<div class="box box-success">
 							<div class="box-header with-border">
 								<div class="ui-g ui-fluid">
 									<div class="ui-g-2">
@@ -382,7 +287,7 @@
 			styleClass="box-success">
 			<p:panel id="panelBuscaFornecedores">
 				<h:form prependId="false">
-					<div class="box box-primary">
+					<div class="box box-success">
 						<div class="box-header with-border">
 							<div class="ui-g ui-fluid">
 								<div class="ui-g-4 ui-sm-2">
@@ -401,7 +306,7 @@
 								<div class="ui-g-2 ui-sm-1">
 									<p:commandButton value="Buscar" update="panelBuscaFornecedores"
 										action="#{orcamentoMB.buscarFornecedoresPorNome}"
-										styleClass="btn-primary" icon="fa fa-check" />
+										styleClass="btn-success" icon="fa fa-check" />
 								</div>
 							</div>
 
@@ -431,7 +336,8 @@
 
 								<div class="ui-g-5 ui-sm-2">
 									<p:dataTable value="#{orcamentoMB.fornecedoresSelecionados}"
-										rows="5" paginator="true" paginatorPosition="bottom"
+										id="table-fornecedores-adicionados" rows="5" paginator="true"
+										paginatorPosition="bottom"
 										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 										currentPageReportTemplate=""
 										rowsPerPageTemplate="5,10,15,20,30"
@@ -445,8 +351,14 @@
 
 										<p:column headerText="Ação">
 											<p:commandButton style="width: 50%;"
+												action="#{orcamentoMB.removerFornecedor}"
+												update="table-fornecedores-adicionados"
 												styleClass="btn btn-danger" value="Excluir"
-												icon="fa fa-close" />
+												icon="fa fa-close">
+												<f:setPropertyActionListener
+													value="#{fornecedorSelecionado}"
+													target="#{orcamentoMB.fornecedorSelecionadoParaRemover}" />
+											</p:commandButton>
 										</p:column>
 									</p:dataTable>
 								</div>
@@ -457,6 +369,104 @@
 						<div class="ui-g-2 ui-sm-1">
 							<p:commandButton value="Concluir" update="table-forn"
 								process="@form" oncomplete="{PF('buscaDeFornecedores').hide();}"
+								styleClass="btn-success" icon="fa fa-check" />
+						</div>
+					</div>
+				</h:form>
+			</p:panel>
+		</p:dialog>
+
+
+
+		<p:dialog header="Busca de Oficinas" resizable="false" width="80%"
+			appendTo="@(body)" height="50%" modal="true" closable="false"
+			widgetVar="buscaDeOficinas" responsive="true"
+			styleClass="box-success">
+			<p:panel id="panelBuscaOficinas">
+				<h:form prependId="false">
+					<div class="box box-success">
+						<div class="box-header with-border">
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-4 ui-sm-2">
+									<div class="ui-material">
+										<p:inputText id="nomeOficinaBusca" required="true"
+											value="#{orcamentoMB.nomeOficinaParaBuscar}"
+											placeholder="Nome" />
+										<p:outputLabel for="nomeOficinaBusca" value="Nome" />
+										<p:message for="nomeOficinaBusca" />
+									</div>
+								</div>
+
+							</div>
+
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-2 ui-sm-1">
+									<p:commandButton value="Buscar" update="panelBuscaOficinas"
+										action="#{orcamentoMB.buscarOficinasPorNome}"
+										styleClass="btn-success" icon="fa fa-check" />
+								</div>
+							</div>
+
+							<div class="ui-g ui-fluid">
+								<div class="ui-g-5 ui-sm-2">
+									<p:dataTable value="#{orcamentoMB.oficinasBuscadas}" rows="5"
+										paginator="true" paginatorPosition="bottom"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+										currentPageReportTemplate=""
+										rowsPerPageTemplate="5,10,15,20,30" selectionMode="single"
+										selection="#{orcamentoMB.oficinaSelecionadaParaAdicionar}"
+										var="oficinaBuscada" rowKey="#{oficinaBuscada.id}">
+
+										<p:column headerText="Nome da Oficina">
+											<p:outputLabel value="#{oficinaBuscada.nome}" />
+										</p:column>
+										<p:column headerText="Cidade">
+											<p:outputLabel value="#{oficinaBuscada.cidade}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+
+								<div class="ui-g-1 ui-sm-1">
+									<p:commandButton process="@form" icon="fa fa-arrow-right"
+										update="panelBuscaOficinas"
+										action="#{orcamentoMB.adicionarOficina}" />
+								</div>
+
+								<div class="ui-g-5 ui-sm-2">
+									<p:dataTable value="#{orcamentoMB.oficinasSelecionadas}"
+										id="table-oficinas-adicionadas" rows="5" paginator="true"
+										paginatorPosition="bottom"
+										paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+										currentPageReportTemplate=""
+										rowsPerPageTemplate="5,10,15,20,30" var="oficinaSelecionada">
+
+										<p:column headerText="Nome da Oficina">
+											<p:outputLabel value="#{oficinaSelecionada.nome}" />
+										</p:column>
+										<p:column headerText="Cidade">
+											<p:outputLabel value="#{oficinaSelecionada.cidade}" />
+										</p:column>
+
+										<p:column headerText="Ação">
+											<p:commandButton style="width: 50%;"
+												action="#{orcamentoMB.removerOficina}"
+												update="table-oficinas-adicionadas"
+												styleClass="btn btn-danger" value="Excluir"
+												icon="fa fa-close">
+												<f:setPropertyActionListener value="#{oficinaSelecionada}"
+													target="#{orcamentoMB.oficinaSelecionadaParaRemover}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="
+													ui-g-12" style="align-content: center;">
+						<div class="ui-g-2 ui-sm-1">
+							<p:commandButton value="Concluir" update="table-oficina"
+								process="@form" oncomplete="{PF('buscaDeOficinas').hide();}"
 								styleClass="btn-success" icon="fa fa-check" />
 						</div>
 					</div>

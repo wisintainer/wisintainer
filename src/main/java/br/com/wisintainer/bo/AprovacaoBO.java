@@ -29,4 +29,12 @@ public class AprovacaoBO implements Serializable {
 	public void removerDaAprovacao(Aprovacao aprovacao) throws Exception {
 		aprovacaoDao.delete(aprovacao);
 	}
+
+	public List<Integer> buscarTodosFornecedoresDaAprovacoesPorOrcamento(Integer idOrcamento) throws Exception {
+		return aprovacaoDao.buscarTodosFornecedoresDaAprovacoesPorOrcamento(idOrcamento);
+	}
+
+	public List<Aprovacao> buscarAprovacoesPorOrcamentoEFornecedor(Integer idOrcamento, Integer idFornecedor) throws Exception {
+		return aprovacaoDao.buscarAprovacoesPorOrcamentoEFornecedor(idOrcamento, idFornecedor);
+	}
 }

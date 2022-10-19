@@ -14,6 +14,7 @@ import javax.inject.Named;
 import org.primefaces.event.FlowEvent;
 
 import br.com.wisintainer.bo.FornecedorBO;
+import br.com.wisintainer.bo.OficinaBO;
 import br.com.wisintainer.bo.OrcamentoBO;
 import br.com.wisintainer.bo.ResposataFornecedorBO;
 import br.com.wisintainer.controller.AbstractMB;
@@ -21,6 +22,7 @@ import br.com.wisintainer.helper.SendEmail;
 import br.com.wisintainer.model.Application;
 import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.ItemOrcamento;
+import br.com.wisintainer.model.Oficina;
 import br.com.wisintainer.model.Orcamento;
 
 @ViewScoped
@@ -34,14 +36,23 @@ public class OrcamentoMB extends AbstractMB {
 	private String produtoServico;
 	private Integer quantidade;
 	private List<Fornecedor> fornecedoresBuscados;
+	private List<Oficina> oficinasBuscadas;
 	private List<Fornecedor> fornecedoresSelecionados;
+	private List<Oficina> oficinasSelecionadas;
 	private String nomeFornecedorParaBuscar;
+	private String nomeOficinaParaBuscar;
 	private Fornecedor fornecedorSelecionadoParaAdicionar;
+	private Fornecedor fornecedorSelecionadoParaRemover;
+	private Oficina oficinaSelecionadaParaAdicionar;
+	private Oficina oficinaSelecionadaParaRemover;
 	private boolean skip;
 	private Integer numeroItem;
 
 	@Inject
 	private FornecedorBO fornecedorBO;
+
+	@Inject
+	private OficinaBO oficinaBO;
 
 	@Inject
 	private OrcamentoBO orcamentoBO;
@@ -61,6 +72,7 @@ public class OrcamentoMB extends AbstractMB {
 		this.itemOrcamento = new ItemOrcamento();
 		this.itensOrcamento = new ArrayList<ItemOrcamento>();
 		this.fornecedoresSelecionados = new ArrayList<Fornecedor>();
+		this.oficinasSelecionadas = new ArrayList<Oficina>();
 		this.numeroItem = 0;
 		this.orcamento.setDataCriacao(new Date());
 
@@ -162,9 +174,22 @@ public class OrcamentoMB extends AbstractMB {
 		this.fornecedoresSelecionados = fornecedoresSelecionados;
 	}
 
+	public List<Oficina> getOficinasBuscadas() {
+		return oficinasBuscadas;
+	}
+
+	public void setOficinasBuscadas(List<Oficina> oficinasBuscadas) {
+		this.oficinasBuscadas = oficinasBuscadas;
+	}
+
 	public void buscarFornecedoresPorNome() throws Exception {
 		this.fornecedoresBuscados = new ArrayList<Fornecedor>();
 		this.fornecedoresBuscados = fornecedorBO.buscarFornecedoresPorNome(nomeFornecedorParaBuscar);
+	}
+
+	public void buscarOficinasPorNome() throws Exception {
+		this.oficinasBuscadas = new ArrayList<Oficina>();
+		this.oficinasBuscadas = oficinaBO.buscarOficinaPorNome(nomeOficinaParaBuscar);
 	}
 
 	public void adicionarFornecedor() {
@@ -172,6 +197,35 @@ public class OrcamentoMB extends AbstractMB {
 			this.fornecedoresSelecionados.add(fornecedorSelecionadoParaAdicionar);
 		}
 
+	}
+
+	public void removerFornecedor() {
+		if (fornecedorSelecionadoParaRemover != null) {
+			this.fornecedoresSelecionados.remove(fornecedorSelecionadoParaRemover);
+		}
+
+	}
+
+	public void adicionarOficina() {
+		if (oficinaSelecionadaParaAdicionar != null) {
+			this.oficinasSelecionadas.add(oficinaSelecionadaParaAdicionar);
+		}
+
+	}
+
+	public void removerOficina() {
+		if (oficinaSelecionadaParaRemover != null) {
+			this.oficinasSelecionadas.remove(oficinaSelecionadaParaRemover);
+		}
+
+	}
+
+	public Oficina getOficinaSelecionadaParaAdicionar() {
+		return oficinaSelecionadaParaAdicionar;
+	}
+
+	public void setOficinaSelecionadaParaAdicionar(Oficina oficinaSelecionadaParaAdicionar) {
+		this.oficinaSelecionadaParaAdicionar = oficinaSelecionadaParaAdicionar;
 	}
 
 	public ItemOrcamento getItemOrcamentoExcluir() {
@@ -198,6 +252,38 @@ public class OrcamentoMB extends AbstractMB {
 		this.skip = skip;
 	}
 
+	public String getNomeOficinaParaBuscar() {
+		return nomeOficinaParaBuscar;
+	}
+
+	public void setNomeOficinaParaBuscar(String nomeOficinaParaBuscar) {
+		this.nomeOficinaParaBuscar = nomeOficinaParaBuscar;
+	}
+
+	public List<Oficina> getOficinasSelecionadas() {
+		return oficinasSelecionadas;
+	}
+
+	public void setOficinasSelecionadas(List<Oficina> oficinasSelecionadas) {
+		this.oficinasSelecionadas = oficinasSelecionadas;
+	}
+
+	public Fornecedor getFornecedorSelecionadoParaRemover() {
+		return fornecedorSelecionadoParaRemover;
+	}
+
+	public void setFornecedorSelecionadoParaRemover(Fornecedor fornecedorSelecionadoParaRemover) {
+		this.fornecedorSelecionadoParaRemover = fornecedorSelecionadoParaRemover;
+	}
+
+	public Oficina getOficinaSelecionadaParaRemover() {
+		return oficinaSelecionadaParaRemover;
+	}
+
+	public void setOficinaSelecionadaParaRemover(Oficina oficinaSelecionadaParaRemover) {
+		this.oficinaSelecionadaParaRemover = oficinaSelecionadaParaRemover;
+	}
+
 	public String onFlowProcess(FlowEvent event) {
 		if (skip) {
 			skip = false; // reset in case user goes back
@@ -211,6 +297,21 @@ public class OrcamentoMB extends AbstractMB {
 		try {
 			orcamento.setItensOrcamento(itensOrcamento);
 			orcamento.setStatus(0);
+
+			Oficina of = new Oficina();
+			of = oficinasSelecionadas.get(0);
+
+			orcamento.setEntrega_empresa(of.getNome());
+			orcamento.setEntrega_responsavel(of.getResponsavel());
+			orcamento.setEntrega_endereco(of.getEndereco());
+			orcamento.setEntrega_numero(of.getNumero());
+			orcamento.setEntrega_bairro(of.getBairro());
+			orcamento.setEntrega_cidade(of.getCidade());
+			orcamento.setEntrega_estado(of.getEstado());
+			orcamento.setEntrega_cep(of.getCep());
+			orcamento.setEntrega_telefone(of.getTelefone());
+			orcamento.setEntrega_email(of.getEmail());
+
 			orcamentoBO.salvarSolicitacaoDeOrcamento(orcamento, this.fornecedoresSelecionados);
 			FacesMessage msg = new FacesMessage("Informação: ");
 			msg.setSeverity(FacesMessage.SEVERITY_INFO);

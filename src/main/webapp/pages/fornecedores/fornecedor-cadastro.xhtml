@@ -6,14 +6,18 @@
 	xmlns:adm="http://github.com/adminfaces"
 	template="#{layoutMB.template}">
 
+	<ui:define name="title">
+        Fornecedores
+    </ui:define>
+
 	<ui:define name="body">
 		<h:form id="frm" prependId="false">
-			<div class="box box-primary">
+			<div class="box box-success">
 				<div class="box-header with-border">
 
 					<p:commandButton icon="fa fa-plus" value="Novo Fornecedor"
 						oncomplete="PF('wVnovoFornecedor').show()"
-						styleClass="btn-primary" />
+						styleClass="btn-success" />
 
 					<p:spacer width="5" />
 
@@ -24,7 +28,7 @@
 					<p:spacer width="5" />
 					<p:separator />
 
-					<div class="box box-primary">
+					<div class="box box-success">
 						<div class="box-header with-border">
 							<div class="ui-g ui-fluid">
 								<div class="ui-g-2 ui-sm-1">
@@ -50,7 +54,7 @@
 										<p:commandButton id="btn_buscar" update="fornecedoresTable"
 											value="Buscar"
 											action="#{fornecedorMB.buscarFornecedoresPorParametro}"
-											styleClass="btn-primary" process="@form" />
+											styleClass="btn-success" process="@form" />
 
 										<p:defaultCommand target="btn_buscar" />
 

@@ -65,11 +65,23 @@ public class SendEmail {
 		newThread.start();
 
 	}
+	
+	public void sendEmailComAnexo(File anexo, String subject, String to, String body, boolean enviaDeVerdade) {
+		Thread newThread = new Thread(() -> {
+			try {
+				sendEmail(subject, to, body, anexo, true);
+			} catch (Exception e) {
+				Logger.getLogger().error(e.getMessage(), e);
+			}
+		});
+		newThread.start();
 
-	private Boolean sendEmail(String subject, String to, String body, File file) {
-		if (!env.equals("prd"))
-			to = br.com.wisintainer.helper.Properties.getInstance()
-					.getAsString("private.administrador.email.mantenedor");
+	}
+
+	public Boolean sendEmail(String subject, String to, String body, File file) {
+//		if (!env.equals("prd"))
+//			to = br.com.wisintainer.helper.Properties.getInstance()
+//					.getAsString("private.administrador.email.mantenedor");
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", br.com.wisintainer.helper.Properties.getInstance()
@@ -79,7 +91,7 @@ public class SendEmail {
 		props.put("mail.smtp.auth",
 				br.com.wisintainer.helper.Properties.getInstance().getAsString("private.administrador.email.auth")); // enable
 																														// authentication
-		props.put("mail.smtp.starttls.enable",
+   		props.put("mail.smtp.starttls.enable",
 				br.com.wisintainer.helper.Properties.getInstance().getAsString("private.administrador.email.starttls")); // enable
 																															// STARTTLS
 
