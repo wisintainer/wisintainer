@@ -1,5 +1,7 @@
 package br.com.wisintainer.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,8 +34,14 @@ public class ItemOrcamento {
 	@Column(name = "orcamento_id")
 	private Integer orcamento_id;
 
+	@Column(name = "cor")
+	private String cor;
+
 	@Transient
 	private boolean tememestoque;
+
+	@Transient
+	private Date previsaoDeEntrega;
 
 	@Transient
 	private Double valor;
@@ -84,6 +92,22 @@ public class ItemOrcamento {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
+	public Date getPrevisaoDeEntrega() {
+		return previsaoDeEntrega;
+	}
+
+	public void setPrevisaoDeEntrega(Date previsaoDeEntrega) {
+		this.previsaoDeEntrega = previsaoDeEntrega;
 	}
 
 }

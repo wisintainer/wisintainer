@@ -1,6 +1,6 @@
 {
 	"identificador" : "wisintainer",
-	"ambiente" : "prd",
+	"ambiente" : "dev",
 	"version" : {
 
 	        "major": "1",

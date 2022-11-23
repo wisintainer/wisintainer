@@ -91,6 +91,9 @@ public class Orcamento implements Serializable {
 	@Column(name = "entrega_requisitante")
 	private String entrega_requisitante;
 
+	@Column(name = "entrega_cnpj")
+	private String entrega_cnpj;
+
 	@Transient
 	private List<ItemOrcamento> itensOrcamento;
 
@@ -260,6 +263,14 @@ public class Orcamento implements Serializable {
 
 	public void setEntrega_requisitante(String entrega_requisitante) {
 		this.entrega_requisitante = entrega_requisitante;
+	}
+
+	public String getEntrega_cnpj() {
+		return entrega_cnpj;
+	}
+
+	public void setEntrega_cnpj(String entrega_cnpj) {
+		this.entrega_cnpj = entrega_cnpj;
 	}
 
 	// 0 - Aberto

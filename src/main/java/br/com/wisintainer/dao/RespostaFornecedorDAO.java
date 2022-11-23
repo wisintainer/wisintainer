@@ -11,12 +11,12 @@ import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.RespostaFornecedor;
 import br.com.wisintainer.model.RespostaOrcamento;
 
-public class ResposataFornecedorDAO extends GenericDAO {
-	public ResposataFornecedorDAO() {
+public class RespostaFornecedorDAO extends GenericDAO {
+	public RespostaFornecedorDAO() {
 		super(HibernateUtil.getSessionMysqlFactory());
 	}
 
-	public ResposataFornecedorDAO(Session session) {
+	public RespostaFornecedorDAO(Session session) {
 		super(HibernateUtil.getSessionMysqlFactory(), session);
 	}
 
@@ -44,7 +44,7 @@ public class ResposataFornecedorDAO extends GenericDAO {
 		execute(sb);
 	}
 
-	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoId(Integer formecedorId, Integer orcamentoId) throws Exception {
+	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoIdEFornecedorId(Integer formecedorId, Integer orcamentoId) throws Exception {
 		SQLBuilder sb = new SQLBuilder(Mode.SQL);
 		sb.append("SELECT * from respostaorcamento ro");
 		sb.append("INNER JOIN itemorcamento item ON item.id = ro.id_item");
@@ -55,4 +55,17 @@ public class ResposataFornecedorDAO extends GenericDAO {
 
 		return getArrayList(sb, RespostaOrcamento.class);
 	}
+
+	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoId(Integer orcamentoId) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append("SELECT * from respostaorcamento ro");
+		sb.append("INNER JOIN itemorcamento item ON item.id = ro.id_item");
+		sb.append("INNER JOIN respostafornecedor rf ON rf.id = ro.id_resposta");
+		sb.append("WHERE ro.id_orcamento = :orcamentoId");
+		sb.append("order by ro.id_item asc");
+		sb.setParameter("orcamentoId", orcamentoId);
+
+		return getArrayList(sb, RespostaOrcamento.class);
+	}
+
 }

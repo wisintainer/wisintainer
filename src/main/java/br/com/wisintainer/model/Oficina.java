@@ -50,6 +50,9 @@ public class Oficina {
 	@Column(name = "cep")
 	private String cep;
 
+	@Column(name = "cnpj")
+	private String cnpj;
+
 	public Integer getId() {
 		return id;
 	}
@@ -136,6 +139,14 @@ public class Oficina {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 }

@@ -26,14 +26,17 @@
 				#{visualizacaoOrcamentoMB.orcamento.veiculoFabricante}</p>
 			<p>Modelo: #{visualizacaoOrcamentoMB.orcamento.veiculoModelo}</p>
 			<p>
-				<b> Valor do Orçamento: R$: 
+				<b> Valor do Orçamento: R$:
 					#{visualizacaoOrcamentoMB.valorTotalAprovadoOrcamento()} </b>
 			</p>
 		</div>
 		<h:form prependId="false">
 			<div class="ui-g">
 				<div class="ui-g-6">
-					<p:commandButton action="#{visualizacaoOrcamentoMB.gerarOrdemDeCompra}" icon="fa fa-shopping-cart" disabled="#{empty visualizacaoOrcamentoMB.aprovaoesDoOrcamento}"
+					<p:commandButton
+						action="#{visualizacaoOrcamentoMB.gerarOrdemDeCompra}"
+						icon="fa fa-shopping-cart"
+						disabled="#{empty visualizacaoOrcamentoMB.aprovaoesDoOrcamento}"
 						styleClass="btn btn-success" value="Gerar Ordem de Compra" />
 				</div>
 
@@ -76,13 +79,14 @@
 						</p:column>
 
 						<p:column style="text-align: center;" headerText="Ação">
-							<p:commandButton title="Remover do Orçamento" update="fornecedoresResponderamTable"
+							<p:commandButton update="fornecedoresResponderamTable"
 								action="#{visualizacaoOrcamentoMB.removerAprovacaoDoOrcamento}"
-								styleClass="btn btn-danger" icon="fa fa-close">
+								icon="fa fa-close" styleClass="btn btn-danger">
 								<f:setPropertyActionListener value="#{aprovacao}"
 									target="#{visualizacaoOrcamentoMB.aprovacaoParaRemover}" />
 							</p:commandButton>
 						</p:column>
+
 					</p:dataTable>
 				</div>
 			</div>

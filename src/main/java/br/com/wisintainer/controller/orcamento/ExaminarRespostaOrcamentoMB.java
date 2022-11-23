@@ -92,7 +92,7 @@ public class ExaminarRespostaOrcamentoMB extends AbstractMB {
 	}
 
 	public void abrirOrcamentoDeUmFornecedor(Integer formecedorId, Integer orcamentoId) throws Exception {
-		this.respostas = respostaFornecedorBo.buscarRespostasOrcamentoPorOrcamentoId(formecedorId, orcamentoId);
+		this.respostas = respostaFornecedorBo.buscarRespostasOrcamentoPorOrcamentoIdEFornecedorId(formecedorId, orcamentoId);
 	}
 
 	public void aprovarSelecionados() {

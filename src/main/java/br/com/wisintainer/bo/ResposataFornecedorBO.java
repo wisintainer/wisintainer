@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import br.com.wisintainer.dao.ResposataFornecedorDAO;
+import br.com.wisintainer.dao.RespostaFornecedorDAO;
 import br.com.wisintainer.model.DetalhamentoResposta;
 import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.ItemOrcamento;
@@ -21,7 +21,7 @@ public class ResposataFornecedorBO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ResposataFornecedorDAO resposataFornecedorDao;
+	private RespostaFornecedorDAO resposataFornecedorDao;
 
 	// Salva na tabela respostafornecedor somente para gerar o id da resposta para
 	// poder enviar ao fornecedor por e-mail.
@@ -42,8 +42,8 @@ public class ResposataFornecedorBO implements Serializable {
 		resposataFornecedorDao.atualizarResposta(idResposta);
 	}
 
-	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoId(Integer formecedorId, Integer orcamentoId) throws Exception {
-		return resposataFornecedorDao.buscarRespostasOrcamentoPorOrcamentoId(formecedorId, orcamentoId);
+	public List<RespostaOrcamento> buscarRespostasOrcamentoPorOrcamentoIdEFornecedorId(Integer formecedorId, Integer orcamentoId) throws Exception {
+		return resposataFornecedorDao.buscarRespostasOrcamentoPorOrcamentoIdEFornecedorId(formecedorId, orcamentoId);
 	}
 
 }

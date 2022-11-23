@@ -214,10 +214,11 @@ public class VisualizacaoOrcamentoMB extends AbstractMB {
 			params.put("PEDIDO_ESTADO", olinha.getEntrega_estado());
 			params.put("PEDIDO_ENDERECO_NUMERO", olinha.getEntrega_numero());
 			params.put("PEDIDO_BAIRRO", olinha.getEntrega_bairro());
+			params.put("PEDIDO_CNPJ", olinha.getEntrega_cnpj());
 
 			Double valorSomado = 0.0;
 			for (Aprovacao ap : aprovacoesDoFornecedor) {
-				valorSomado = valorSomado + ap.getItem_valor();
+				valorSomado = valorSomado + (ap.getItem_valor() * ap.getItem_quantidade());
 			}
 			params.put("VALOR_TOTAL_ORDEM_DE_COMPRA", valorSomado);
 
@@ -280,6 +281,11 @@ public class VisualizacaoOrcamentoMB extends AbstractMB {
 				ordem.setOrdemdecompra(reportData);
 
 				ordemDeCompraBO.salvarOrdemDeCompra(ordem, aprovacoesDoFornecedor);
+				
+				FacesMessage msg = new FacesMessage("Informação: ");
+				msg.setSeverity(FacesMessage.SEVERITY_INFO);
+				msg.setDetail("Ordem de compra gerada e enviada aos fornecedores!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
 
 				// Descomentar para exibir arquivo gerado na tela
 //				FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -394,9 +400,9 @@ public class VisualizacaoOrcamentoMB extends AbstractMB {
 				+ "	<parameter name=\"PEDIDO_TELEFONE\" class=\"java.lang.String\"/>\r\n"
 				+ "	<parameter name=\"PEDIDO_EMAIL\" class=\"java.lang.String\"/>\r\n"
 				+ "	<parameter name=\"PEDIDO_ENDERECO_NUMERO\" class=\"java.lang.String\"/>\r\n"
-				+ "	<parameter name=\"VALOR_TOTAL_ORDEM_DE_COMPRA\" class=\"java.lang.Double\"/>\r\n" + "	<queryString>\r\n"
-				+ "		<![CDATA[]]>\r\n" + "	</queryString>\r\n" + "	<title>\r\n" + "		<band height=\"378\" splitType=\"Stretch\">\r\n"
-				+ "			<staticText>\r\n"
+				+ "	<parameter name=\"VALOR_TOTAL_ORDEM_DE_COMPRA\" class=\"java.lang.Double\"/>\r\n"
+				+ "	<parameter name=\"PEDIDO_CNPJ\" class=\"java.lang.String\"/>\r\n" + "	<queryString>\r\n" + "		<![CDATA[]]>\r\n"
+				+ "	</queryString>\r\n" + "	<title>\r\n" + "		<band height=\"384\" splitType=\"Stretch\">\r\n" + "			<staticText>\r\n"
 				+ "				<reportElement x=\"283\" y=\"19\" width=\"275\" height=\"20\" uuid=\"0f86baff-6386-4f3f-b3fe-2388707babe8\"/>\r\n"
 				+ "				<box rightPadding=\"4\"/>\r\n" + "				<textElement textAlignment=\"Center\">\r\n"
 				+ "					<font size=\"12\" isBold=\"true\"/>\r\n" + "				</textElement>\r\n"
@@ -542,11 +548,17 @@ public class VisualizacaoOrcamentoMB extends AbstractMB {
 				+ "					<property name=\"com.jaspersoft.studio.unit.height\" value=\"px\"/>\r\n" + "				</reportElement>\r\n"
 				+ "			</rectangle>\r\n" + "			<textField>\r\n"
 				+ "				<reportElement x=\"502\" y=\"295\" width=\"54\" height=\"20\" uuid=\"c2ac0afb-ef2b-488a-a469-fe4c43cb1d3a\"/>\r\n"
-				+ "				<textFieldExpression><![CDATA[$P{PEDIDO_ENDERECO_NUMERO}]]></textFieldExpression>\r\n" + "			</textField>\r\n"
-				+ "			<image hAlign=\"Center\" vAlign=\"Top\">\r\n"
+				+ "				<textFieldExpression><![CDATA[\"N-\" + $P{PEDIDO_ENDERECO_NUMERO}]]></textFieldExpression>\r\n"
+				+ "			</textField>\r\n" + "			<image hAlign=\"Center\" vAlign=\"Top\">\r\n"
 				+ "				<reportElement x=\"0\" y=\"19\" width=\"281\" height=\"139\" uuid=\"38c0f68b-bd06-4da6-a83c-10a99ba1c321\"/>\r\n"
-				+ "				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>\r\n" + "			</image>\r\n" + "		</band>\r\n"
-				+ "	</title>\r\n" + "	<detail>\r\n" + "		<band height=\"109\">\r\n" + "			<componentElement>\r\n"
+				+ "				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>\r\n" + "			</image>\r\n"
+				+ "			<textField>\r\n"
+				+ "				<reportElement x=\"313\" y=\"356\" width=\"100\" height=\"15\" uuid=\"d867fb7a-31ef-4e70-98d1-f3b2da77a510\"/>\r\n"
+				+ "				<textFieldExpression><![CDATA[$P{PEDIDO_CNPJ}]]></textFieldExpression>\r\n" + "			</textField>\r\n"
+				+ "			<staticText>\r\n"
+				+ "				<reportElement x=\"281\" y=\"356\" width=\"34\" height=\"19\" uuid=\"b2a48f9f-f1ea-4749-aeaf-126df6253cc3\"/>\r\n"
+				+ "				<text><![CDATA[CNPJ:]]></text>\r\n" + "			</staticText>\r\n" + "		</band>\r\n" + "	</title>\r\n"
+				+ "	<detail>\r\n" + "		<band height=\"109\">\r\n" + "			<componentElement>\r\n"
 				+ "				<reportElement x=\"0\" y=\"0\" width=\"557\" height=\"109\" isRemoveLineWhenBlank=\"true\" backcolor=\"#FF1612\" uuid=\"ee60be5d-95c6-4a4f-92ab-642aa9562c16\">\r\n"
 				+ "					<property name=\"com.jaspersoft.studio.layout\" value=\"com.jaspersoft.studio.editor.layout.VerticalRowLayout\"/>\r\n"
 				+ "					<property name=\"com.jaspersoft.studio.table.style.table_header\" value=\"Table 1_TH\"/>\r\n"

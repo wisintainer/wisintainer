@@ -42,7 +42,7 @@ public class LogonMB extends AdminSession implements Serializable {
 	private boolean remember;
 
 	public void login() throws IOException {
-		if (email.equals("wisintainer") && password.equals("wisintainer")) {
+		if (email.equals("adasc") && password.equals("adasc")) {
 			currentUser = email;
 			addDetailMessage("Acesso liberado <b>" + email + "</b>");
 			Faces.getExternalContext().getFlash().setKeepMessages(true);

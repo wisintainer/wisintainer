@@ -26,4 +26,18 @@ public class RespostaOrcamentoDAO extends GenericDAO {
 		return getArrayList(sb, RespostaOrcamento.class);
 	}
 
+	public void colocarRespostaComoAprovada(Integer id) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" UPDATE respostaorcamento SET aprovado = true where id = :id ");
+		sb.setParameter("id", id);
+		execute(sb);
+	}
+
+	public void colocarRespostaComoReprovada(Integer id) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" UPDATE respostaorcamento SET aprovado = false where id = :id ");
+		sb.setParameter("id", id);
+		execute(sb);
+	}
+
 }

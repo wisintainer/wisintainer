@@ -59,8 +59,7 @@
 						selection="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar}"
 						id="fornecedoresTable" widgetVar="fornecedorTable" rows="10"
 						value="#{gerenciarOficinaMB.oficinas}" var="oficina"
-						paginator="true" paginatorPosition="bottom"
-						rowKey="#{oficina.id}"
+						paginator="true" paginatorPosition="bottom" rowKey="#{oficina.id}"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
 						currentPageReportTemplate="" rowsPerPageTemplate="5,10,15,20,30">
 
@@ -100,6 +99,15 @@
 									value="#{gerenciarOficinaMB.novaOficina.nome}" />
 								<p:outputLabel for="nome" value="Nome da Oficina" />
 								<p:message for="nome" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="cnpj" placeholder="CNPJ"
+									value="#{gerenciarOficinaMB.novaOficina.cnpj}" />
+								<p:outputLabel for="cnpj" value="CNPJ" />
+								<p:message for="cnpj" />
 							</div>
 						</div>
 
@@ -170,7 +178,8 @@
 
 						<div class="ui-g-6 ui-sm-2">
 							<div class="ui-material">
-								<p:selectOneMenu value="#{gerenciarOficinaMB.novaOficina.estado}">
+								<p:selectOneMenu
+									value="#{gerenciarOficinaMB.novaOficina.estado}">
 									<f:selectItem itemLabel="SC" itemValue="SC" />
 
 									<f:selectItem itemLabel="AC" itemValue="AC" />
@@ -211,12 +220,14 @@
 								<p:message for="cep" />
 							</div>
 						</div>
+
 					</div>
 
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-2 ui-sm-1">
 							<p:commandButton value="Cadastrar" process="@form"
-								update="fornecedoresTable" oncomplete="PF('wVnovoFornecedor').hide()"
+								update="fornecedoresTable"
+								oncomplete="PF('wVnovoFornecedor').hide()"
 								action="#{gerenciarOficinaMB.salvarOficina}"
 								styleClass="btn btn-success" />
 						</div>
@@ -255,6 +266,15 @@
 									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.nome}" />
 								<p:outputLabel for="_nome" value="Nome da Oficina" />
 								<p:message for="_nome" />
+							</div>
+						</div>
+
+						<div class="ui-g-6 ui-sm-2">
+							<div class="ui-material">
+								<p:inputText id="_cnpj" placeholder="CNPJ"
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.cnpj}" />
+								<p:outputLabel for="_cnpj" value="CNPJ" />
+								<p:message for="_cnpj" />
 							</div>
 						</div>
 
@@ -325,7 +345,8 @@
 
 						<div class="ui-g-6 ui-sm-2">
 							<div class="ui-material">
-								<p:selectOneMenu value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.estado}">
+								<p:selectOneMenu
+									value="#{gerenciarOficinaMB.oficinaSelecionadaParaEditar.estado}">
 									<f:selectItem itemLabel="SC" itemValue="SC" />
 
 									<f:selectItem itemLabel="AC" itemValue="AC" />
@@ -371,7 +392,8 @@
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-2 ui-sm-1">
 							<p:commandButton value="Salvar" process="@form"
-								update="fornecedoresTable" oncomplete="PF('wVeditarFornecedor').hide()"
+								update="fornecedoresTable"
+								oncomplete="PF('wVeditarFornecedor').hide()"
 								action="#{gerenciarOficinaMB.editarOficina}"
 								styleClass="btn btn-success" />
 						</div>

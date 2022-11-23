@@ -140,6 +140,7 @@ public class RespostaOrcamentoMB extends AbstractMB {
 				respostaOrcamento.setId_fornecedor(this.resposta.getId_fornecedor());
 				respostaOrcamento.setNomeFornecedor(fornecedorBO.buscarFornecedorPorId(this.resposta.getId_fornecedor()).getNome());
 				respostaOrcamento.setData_resposta(new Date());
+				respostaOrcamento.setPrevisaodeentrega(item.getPrevisaoDeEntrega());
 
 				validaSePodeEnviar();
 				if (envioDoOrcamentoLiberado) {

@@ -1,8 +1,10 @@
 package br.com.wisintainer.controller.orcamento;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -293,8 +295,133 @@ public class OrcamentoMB extends AbstractMB {
 		}
 	}
 
+	private Color gerarCorAleatoriamente() {
+		Random randColor = new Random();
+		int r = randColor.nextInt(256);
+		int g = randColor.nextInt(256);
+		int b = randColor.nextInt(256);
+		return new Color(r, g, b);
+	}
+
+	private String gerarCorHexadecimal(Color color) {
+		return '#' + this.tratarHexString(Integer.toHexString(color.getRed())) + this.tratarHexString(Integer.toHexString(color.getGreen()))
+				+ this.tratarHexString(Integer.toHexString(color.getBlue()));
+	}
+
+	private String tratarHexString(String hexString) {
+		String hex = null;
+		if (hexString.length() == 1) {
+			hex = '0' + hexString;
+		} else {
+			hex = hexString;
+		}
+		return hex;
+	}
+
+//	private boolean isBrilhoCorreto(float brightness) {
+//		if (brightness >= 0.5 && brightness <= 0.9) {
+//			return true;
+//		}
+//		return false;
+//	}
+
+	private boolean isBrilhoCorreto(float brightness) {
+		if (brightness >= 1) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isSaturacaoCorreta(float saturation) {
+		if (saturation <= 0.9) {
+			return true;
+		}
+		return false;
+	}
+
+	private double calcularDistanciaDeCores(Color cor1, Color cor2) {
+		long meanRed = (cor1.getRed() + cor2.getRed()) / 2;
+		long deltaRed = cor1.getRed() - cor2.getRed();
+		long deltaGreen = cor1.getGreen() - cor2.getGreen();
+		long deltaBlue = cor1.getBlue() - cor2.getBlue();
+		return Math.sqrt(
+				(2 + meanRed / 256) * Math.pow(deltaRed, 2) + 4 * Math.pow(deltaGreen, 2) + (2 + (255 - meanRed) / 256) * Math.pow(deltaBlue, 2));
+	}
+
+	private boolean isDistanciaAceitavel(Color cor1, Color cor2) {
+		if (this.calcularDistanciaDeCores(cor1, cor2) < 200) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isCorParecidaComCorPermitida(List<Color> coresPermitidas, Color corAleatoria) {
+		boolean isCorParecida = false;
+		for (Color corPermitida : coresPermitidas) {
+			if (!this.isDistanciaAceitavel(corPermitida, corAleatoria)) {
+				isCorParecida = true;
+				break;
+			}
+		}
+		return isCorParecida;
+	}
+
+	private void carregarCoresProibidasDefault(List<Color> coresProibidas) {
+		coresProibidas.add(new Color(0, 0, 0)); // preto
+		coresProibidas.add(new Color(255, 255, 255)); // branco
+	}
+
+	public List<Color> gerarCores(int qtdDeCores) {
+		List<Color> coresPermitidas = new ArrayList<Color>();
+		List<Color> coresProibidas = new ArrayList<Color>();
+		this.carregarCoresProibidasDefault(coresProibidas);
+
+		Color corAleatoria = null;
+		boolean isCorProibida = false;
+		for (int i = 0; i < qtdDeCores; i++) {
+			while (true) {
+				corAleatoria = this.gerarCorAleatoriamente();
+				float[] hsb = Color.RGBtoHSB(corAleatoria.getRed(), corAleatoria.getGreen(), corAleatoria.getBlue(), null);
+				float saturation = hsb[1];
+				float brightness = hsb[2];
+				for (Color corProibida : coresProibidas) {
+					isCorProibida = corProibida.equals(corAleatoria) || !this.isBrilhoCorreto(brightness) || !this.isSaturacaoCorreta(saturation)
+							|| !this.isDistanciaAceitavel(corAleatoria, corProibida)
+							|| this.isCorParecidaComCorPermitida(coresPermitidas, corAleatoria);
+					if (isCorProibida) {
+						coresProibidas.add(corProibida);
+						break;
+					}
+				}
+				if (isCorProibida) {
+					isCorProibida = false;
+					continue;
+				}
+				break;
+			}
+			coresProibidas.clear();
+			coresPermitidas.add(corAleatoria);
+		}
+
+		return coresPermitidas;
+	}
+
 	public void salvarSolicitacaoDeOrcamento() throws Exception {
 		try {
+			List<Color> cores = gerarCores(itensOrcamento.size());
+
+//			for (int i = 0; i <= itensOrcamento.size() - 1; i++) {
+//				itensOrcamento.get(i).setCor(gerarCorHexadecimal(cores.get(i)));
+//			}
+
+			for (int i = 0; i <= itensOrcamento.size() - 1; i++) {
+				if (i % 2 == 0) {
+					itensOrcamento.get(i).setCor("#a3ffa9");
+				} else {
+					itensOrcamento.get(i).setCor("#ffffff");
+				}
+			}
+
 			orcamento.setItensOrcamento(itensOrcamento);
 			orcamento.setStatus(0);
 
@@ -311,6 +438,7 @@ public class OrcamentoMB extends AbstractMB {
 			orcamento.setEntrega_cep(of.getCep());
 			orcamento.setEntrega_telefone(of.getTelefone());
 			orcamento.setEntrega_email(of.getEmail());
+			orcamento.setEntrega_cnpj(of.getCnpj());
 
 			orcamentoBO.salvarSolicitacaoDeOrcamento(orcamento, this.fornecedoresSelecionados);
 			FacesMessage msg = new FacesMessage("Informação: ");

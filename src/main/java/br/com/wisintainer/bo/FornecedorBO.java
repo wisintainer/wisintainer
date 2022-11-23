@@ -6,7 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import br.com.wisintainer.dao.FornecedorDAO;
+import br.com.wisintainer.dao.RespostaFornecedorDAO;
 import br.com.wisintainer.model.Fornecedor;
+import br.com.wisintainer.model.RespostaFornecedor;
+import br.com.wisintainer.model.RespostaOrcamento;
 
 public class FornecedorBO implements Serializable {
 
@@ -17,6 +20,9 @@ public class FornecedorBO implements Serializable {
 
 	@Inject
 	private FornecedorDAO fornecedorDao;
+
+	@Inject
+	private RespostaFornecedorDAO respostaFornecedorDAO;
 
 	public List<Fornecedor> buscarTodosFornecedores() throws Exception {
 		return fornecedorDao.buscarTodosFornecedoresSqlNativo();
@@ -52,5 +58,9 @@ public class FornecedorBO implements Serializable {
 
 	public List<Fornecedor> buscarFornecedoresQueResponderamOorcamento(Integer idOrcamento) throws Exception {
 		return fornecedorDao.buscarFornecedoresQueResponderamOorcamento(idOrcamento);
+	}
+
+	public List<RespostaOrcamento> buscarRespostas(Integer idOrcamento) throws Exception {
+		return respostaFornecedorDAO.buscarRespostasOrcamentoPorOrcamentoId(idOrcamento);
 	}
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
@@ -68,6 +69,15 @@ public class RespostaOrcamento implements Serializable {
 
 	@Column(name = "data_resposta")
 	private Date data_resposta;
+
+	@Column(name = "aprovado")
+	private boolean aprovado;
+
+	@Column(name = "previsaodeentrega")
+	private Date previsaodeentrega;
+
+	@Transient
+	private String cor;
 
 	public String temEmEstoqueAsString() {
 		if (tememestoque) {
@@ -173,6 +183,54 @@ public class RespostaOrcamento implements Serializable {
 	public String valorTotalPorItem() {
 		DecimalFormat decimal = new DecimalFormat("###,###,###,##0.00");
 		return decimal.format(quantidade * valor);
+	}
+
+	public boolean isAprovado() {
+		return aprovado;
+	}
+
+	public void setAprovado(boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
+	public Date getPrevisaodeentrega() {
+		return previsaodeentrega;
+	}
+
+	public void setPrevisaodeentrega(Date previsaodeentrega) {
+		this.previsaodeentrega = previsaodeentrega;
+	}
+
+	public String textoBotaoAprovacao() {
+		if (isAprovado()) {
+			return "Reprovar";
+		} else {
+			return "Aprovar";
+		}
+	}
+
+	public String textosituacao() {
+		if (isAprovado()) {
+			return "Aprovado";
+		} else {
+			return "Reprovado";
+		}
+	}
+
+	public String cssSituacao() {
+		if (isAprovado()) {
+			return "border-radius: 10px; background-color:green; color:white;";
+		} else {
+			return "border-radius: 10px; background-color:red; color:white;";
+		}
 	}
 
 }

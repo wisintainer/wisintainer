@@ -26,4 +26,12 @@ public class RespostaOrcamentoBO implements Serializable {
 		return respostaOrcamentoDao.buscarTodasAsRespostasDeOrcamento();
 	}
 
+	public void colocarRespostaComoAprovada(Integer id) throws Exception {
+		respostaOrcamentoDao.colocarRespostaComoAprovada(id);
+	}
+
+	public void colocarRespostaComoReprovada(Integer id) throws Exception {
+		respostaOrcamentoDao.colocarRespostaComoReprovada(id);
+	}
+
 }

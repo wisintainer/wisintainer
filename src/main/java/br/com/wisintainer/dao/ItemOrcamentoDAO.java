@@ -27,4 +27,12 @@ public class ItemOrcamentoDAO extends GenericDAO {
 
 		return getArrayList(sb, ItemOrcamento.class);
 	}
+
+	public ItemOrcamento buscarItensPorId(Integer idItem) throws Exception {
+		SQLBuilder sb = new SQLBuilder(Mode.SQL);
+		sb.append(" SELECT * FROM itemorcamento WHERE id = :idItem ");
+		sb.setParameter("idItem", idItem);
+
+		return getSingle(sb, ItemOrcamento.class);
+	}
 }

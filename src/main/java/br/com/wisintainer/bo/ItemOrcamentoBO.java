@@ -23,4 +23,8 @@ public class ItemOrcamentoBO implements Serializable {
 		return itemOrcamentoDao.buscarItensPorOrcamento(idOrcamento);
 	}
 
+	public ItemOrcamento buscarItensPorId(Integer idItem) throws Exception {
+		return itemOrcamentoDao.buscarItensPorId(idItem);
+	}
+
 }

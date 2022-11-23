@@ -28,21 +28,24 @@
 				#{examinarRespostaOrcamentoMB.orcamento.veiculoFabricante}</p>
 			<p>Modelo: #{examinarRespostaOrcamentoMB.orcamento.veiculoModelo}</p>
 		</div>
-<h:form prependId="false">
-		<div class="ui-g">
-			<div class="ui-g-6">
-				<p:commandButton icon="fa fa-circle" styleClass="btn btn-success" value="Aprovar Total" />
-				<p:commandButton process="@form" action="#{examinarRespostaOrcamentoMB.aprovarSelecionados}" icon="fa fa-adjust" styleClass="btn btn-success" value="Aprovar Selecionados" />
+		<h:form prependId="false">
+			<div class="ui-g">
+				<div class="ui-g-6">
+					<p:commandButton icon="fa fa-circle" styleClass="btn btn-success"
+						value="Aprovar Total" />
+					<p:commandButton process="@form"
+						action="#{examinarRespostaOrcamentoMB.aprovarSelecionados}"
+						icon="fa fa-adjust" styleClass="btn btn-success"
+						value="Aprovar Selecionados" />
+				</div>
+
 			</div>
 
-		</div>
 
-		
 			<div class="box box-success">
 				<div class="ui-g-12 ui-sm-6">
 					<p:dataTable id="fornecedoresResponderamTable"
-						rowKey="#{resposta.id}"
-						selectionMode="multiple"
+						rowKey="#{resposta.id}" selectionMode="multiple"
 						selection="#{examinarRespostaOrcamentoMB.respostasSelecionadas}"
 						value="#{examinarRespostaOrcamentoMB.respostas}"
 						emptyMessage="Nenhum Fornecedor respondeu a este Orçamento."
@@ -73,6 +76,14 @@
 
 						<p:column style="text-align: center;" headerText="Tem em Estoque?">
 							<p:outputLabel value="#{resposta.temEmEstoqueAsString()}" />
+						</p:column>
+
+						<p:column style="text-align: center;"
+							headerText="Previsão de Entrega">
+							<p:outputLabel value="#{resposta.previsaodeentrega}">
+								<f:convertDateTime locale="pt_BR" timeZone="America/Sao_Paulo"
+									pattern="dd/MM/yyyy" />
+							</p:outputLabel>
 						</p:column>
 					</p:dataTable>
 				</div>
