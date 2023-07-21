@@ -86,7 +86,16 @@
 						</div>
 					</p:tab>
 					<p:tab id="produtos" title="2 - Produtos/Serviços">
+
 						<h:form>
+							<p:fileUpload mode="advanced" multiple="false"
+								cancelLabel="Cancelar" label="Adicionar XML" uploadLabel="Importar XML"
+								allowTypes="/(\.|\/)(xml)$/"
+								invalidFileMessage="Somente arquivos XML Permitidos"
+								update="panelItensOrcamento"
+								fileUploadListener="#{orcamentoMB.handleFileUpload}" />
+
+
 							<div class="box box-success">
 								<div class="box-header with-border">
 									<div class="ui-g ui-fluid">

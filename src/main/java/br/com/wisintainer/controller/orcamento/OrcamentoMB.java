@@ -1,6 +1,12 @@
 package br.com.wisintainer.controller.orcamento;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,24 +19,41 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import javax.xml.bind.JAXBContext;
+
+import javax.xml.bind.JAXBException;
+
+import javax.xml.bind.Unmarshaller;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.UploadedFile;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.wisintainer.bo.FornecedorBO;
 import br.com.wisintainer.bo.OficinaBO;
 import br.com.wisintainer.bo.OrcamentoBO;
-import br.com.wisintainer.bo.ResposataFornecedorBO;
+
 import br.com.wisintainer.controller.AbstractMB;
-import br.com.wisintainer.helper.SendEmail;
+
 import br.com.wisintainer.model.Application;
 import br.com.wisintainer.model.Fornecedor;
 import br.com.wisintainer.model.ItemOrcamento;
 import br.com.wisintainer.model.Oficina;
 import br.com.wisintainer.model.Orcamento;
+import br.com.wisintainer.model.importacao.Item;
+import br.com.wisintainer.model.importacao.ItensOrcamento;
 
 @ViewScoped
 @Named("orcamentoMB")
 public class OrcamentoMB extends AbstractMB {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Orcamento orcamento;
 	private ItemOrcamento itemOrcamento = new ItemOrcamento();
 	private ItemOrcamento itemOrcamentoExcluir = new ItemOrcamento();
@@ -49,6 +72,7 @@ public class OrcamentoMB extends AbstractMB {
 	private Oficina oficinaSelecionadaParaRemover;
 	private boolean skip;
 	private Integer numeroItem;
+	private UploadedFile arquivoParaImportacao;
 
 	@Inject
 	private FornecedorBO fornecedorBO;
@@ -182,6 +206,14 @@ public class OrcamentoMB extends AbstractMB {
 
 	public void setOficinasBuscadas(List<Oficina> oficinasBuscadas) {
 		this.oficinasBuscadas = oficinasBuscadas;
+	}
+
+	public UploadedFile getArquivoParaImportacao() {
+		return arquivoParaImportacao;
+	}
+
+	public void setArquivoParaImportacao(UploadedFile arquivoParaImportacao) {
+		this.arquivoParaImportacao = arquivoParaImportacao;
 	}
 
 	public void buscarFornecedoresPorNome() throws Exception {
@@ -449,6 +481,46 @@ public class OrcamentoMB extends AbstractMB {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void lerExcel() throws EncryptedDocumentException, IOException {
+		FileInputStream fis = new FileInputStream("C:\\planilha.xlsx");
+		org.apache.poi.xssf.usermodel.XSSFWorkbook wb = new XSSFWorkbook(fis);
+		XSSFSheet sheet = wb.getSheetAt(0);
+		String value = sheet.getRow(0).getCell(1).getStringCellValue();
+		System.out.println(value);
+	}
+
+	public void lerXml(File file) throws EncryptedDocumentException, IOException, JAXBException {
+		// File file = new File("C:\\orcamento.xml");
+		JAXBContext jaxbContext = JAXBContext.newInstance(br.com.wisintainer.model.importacao.Orcamento.class);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		br.com.wisintainer.model.importacao.Orcamento importacao = (br.com.wisintainer.model.importacao.Orcamento) unmarshaller.unmarshal(file);
+
+		for (Item item : importacao.getItens_orcamento().getItem()) {
+
+			this.itemOrcamento = new ItemOrcamento();
+			this.itemOrcamento.setProdutoServico(item.getNome());
+			this.itemOrcamento.setQuantidade(Integer.parseInt(item.getQuantidade()));
+			this.itensOrcamento.add(itemOrcamento);
+			numeroItem = numeroItem + 1;
+		}
+
+	}
+
+	public void handleFileUpload(FileUploadEvent event) throws IOException, EncryptedDocumentException, JAXBException {
+		arquivoParaImportacao = event.getFile();
+		File file = new File("orcamento.xml");
+		OutputStream out = new FileOutputStream(file);
+		out.write(arquivoParaImportacao.getContents());
+		out.close();
+
+		if (arquivoParaImportacao != null && arquivoParaImportacao.getContents() != null && arquivoParaImportacao.getContents().length > 0
+				&& arquivoParaImportacao.getFileName() != null) {
+			lerXml(file);
+			FacesMessage msg = new FacesMessage("XML", this.arquivoParaImportacao.getFileName() + " Importado!.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 }
